@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The True Cost of Home Remodeling in Fort Worth for 2026 | Alonso Innovation</title>
+  <meta name="description" content="A 2026 pricing guide covering kitchen remodeling, bathroom renovations, additions, and whole-home projects in Fort Worth with budgeting tips." />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c8a96e;
+      --gold-light: #e0c48a;
+      --dark: #0d0d0d;
+      --dark2: #141414;
+      --white: #ffffff;
+      --off-white: #f7f5f2;
+      --gray: #888;
+      --font-heading: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--white); color: var(--dark); overflow-x: hidden; }
+
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 18px 5%; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,13,13,0.95); backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+    .nav-logo { font-family: var(--font-heading); font-size: 1.7rem; color: var(--white); letter-spacing: 2px; text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-phone { font-size: 0.82rem; font-weight: 700; color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 8px 16px; border-radius: 2px; transition: background 0.3s; }
+    .nav-phone:hover { background: var(--gold); color: var(--dark); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--white); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(13,13,13,0.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--font-heading); font-size: 2.5rem; color: var(--white); text-decoration: none; letter-spacing: 3px; transition: color 0.3s; }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu .mob-phone { font-size: 1.2rem; color: var(--gold); font-family: var(--font-body); font-weight: 700; border: 1px solid var(--gold); padding: 12px 28px; border-radius: 2px; }
+
+    .blog-hero {
+      padding: 140px 5% 80px;
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1208 50%, #0d0d0d 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(200,169,110,0.12) 0%, transparent 70%);
+    }
+    .blog-hero-tag {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--gold); padding: 5px 14px; border-radius: 2px;
+      margin-bottom: 24px; position: relative; z-index: 1;
+    }
+    .blog-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      color: var(--white); letter-spacing: 2px; line-height: 1.1;
+      max-width: 800px; margin: 0 auto 20px; position: relative; z-index: 1;
+    }
+    .blog-hero-meta {
+      color: var(--gray); font-size: 0.85rem; position: relative; z-index: 1;
+    }
+    .blog-hero-meta span { color: var(--gold); }
+
+    .article-wrap {
+      max-width: 800px; margin: 0 auto;
+      padding: 72px 24px 96px;
+    }
+    .article-img-placeholder {
+      width: 100%; height: 380px; border-radius: 4px; margin-bottom: 48px;
+      background: linear-gradient(135deg, #c8a96e 0%, #5a3a1a 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .article-img-placeholder span { font-family: var(--font-heading); font-size: 1.2rem; color: rgba(255,255,255,0.4); letter-spacing: 3px; }
+    .article-wrap h2 {
+      font-family: var(--font-heading); font-size: 1.9rem; letter-spacing: 1.5px;
+      color: var(--dark); margin: 48px 0 16px;
+    }
+    .article-wrap h3 {
+      font-family: var(--font-heading); font-size: 1.3rem; letter-spacing: 1px;
+      color: var(--dark); margin: 32px 0 12px;
+    }
+    .article-wrap p {
+      font-size: 1.05rem; line-height: 1.85; color: #333; margin-bottom: 20px;
+    }
+    .article-wrap ul {
+      margin: 0 0 24px 20px;
+    }
+    .article-wrap ul li {
+      font-size: 1.05rem; line-height: 1.85; color: #333; margin-bottom: 10px;
+    }
+    .cost-table {
+      width: 100%; border-collapse: collapse; margin: 32px 0;
+    }
+    .cost-table th {
+      background: var(--dark); color: var(--gold); font-family: var(--font-heading);
+      font-size: 1rem; letter-spacing: 1px; padding: 14px 20px; text-align: left;
+    }
+    .cost-table td {
+      padding: 14px 20px; border-bottom: 1px solid #e8e8e8;
+      font-size: 0.95rem; color: #333;
+    }
+    .cost-table tr:nth-child(even) td { background: var(--off-white); }
+    .gold-line { width: 48px; height: 3px; background: var(--gold); margin: 0 0 32px; }
+
+    .tip-box {
+      background: var(--off-white); border-left: 4px solid var(--gold);
+      padding: 24px 28px; margin: 32px 0; border-radius: 0 4px 4px 0;
+    }
+    .tip-box strong { font-weight: 700; color: var(--dark); display: block; margin-bottom: 8px; }
+    .tip-box p { margin: 0; font-size: 0.98rem; }
+
+    .article-cta {
+      background: var(--dark); border-radius: 4px;
+      padding: 48px 40px; text-align: center; margin-top: 64px;
+    }
+    .article-cta h3 { font-family: var(--font-heading); font-size: 2rem; color: var(--white); letter-spacing: 2px; margin-bottom: 14px; }
+    .article-cta p { color: var(--gray); margin-bottom: 28px; font-size: 1rem; }
+    .btn-gold {
+      display: inline-block; background: var(--gold); color: var(--dark);
+      font-weight: 700; font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase;
+      padding: 16px 36px; border-radius: 2px; text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--gold); font-weight: 600; font-size: 0.85rem;
+      letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+      margin-bottom: 48px; transition: gap 0.3s;
+    }
+    .back-link:hover { gap: 14px; }
+
+    footer {
+      background: var(--dark2); padding: 48px 5% 24px;
+      border-top: 1px solid #222;
+    }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; border-top: 1px solid #222;
+      font-size: 0.8rem; color: var(--gray); flex-wrap: wrap; gap: 8px;
+    }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-phone { display: none; }
+      .hamburger { display: flex; }
+      .article-wrap { padding: 48px 20px 72px; }
+      .blog-hero { padding: 120px 5% 60px; }
+      .cost-table { font-size: 0.85rem; }
+      .cost-table th, .cost-table td { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">Alonso <span>Innovation</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#blog">Blog</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a class="nav-phone" href="tel:8176969578">(817) 696-9578</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#services" class="mob-link">Services</a>
+  <a href="index.html#portfolio" class="mob-link">Portfolio</a>
+  <a href="index.html#about" class="mob-link">About</a>
+  <a href="index.html#blog" class="mob-link">Blog</a>
+  <a href="index.html#contact" class="mob-link">Contact</a>
+  <a href="tel:8176969578" class="mob-phone mob-link">(817) 696-9578</a>
+</div>
+
+<div class="blog-hero">
+  <span class="blog-hero-tag">Cost Guide · 2026</span>
+  <h1>THE TRUE COST OF HOME REMODELING IN FORT WORTH FOR 2026</h1>
+  <p class="blog-hero-meta">By <span>Alonso Innovation</span> &nbsp;·&nbsp; Fort Worth, TX &nbsp;·&nbsp; 2026</p>
+</div>
+
+<div class="article-wrap">
+  <a class="back-link" href="index.html#blog">← Back to Blog</a>
+
+  <div class="article-img-placeholder">
+    <span>FEATURED IMAGE</span>
+  </div>
+
+  <div class="gold-line"></div>
+
+  <p>If you're planning a home remodel in Fort Worth this year, one of the first questions you'll ask is: <strong>how much is this going to cost?</strong> The honest answer depends on the scope of your project, materials, and labor — but we can give you real numbers based on what we're seeing in 2026.</p>
+
+  <h2>WHAT DRIVES REMODELING COSTS IN FORT WORTH?</h2>
+  <p>Remodeling costs in DFW have shifted significantly over the past few years. Material costs, labor demand, and supply chain factors all play a role. In 2026, Fort Worth homeowners should expect:</p>
+  <ul>
+    <li><strong>Scope of work</strong> — cosmetic updates vs. structural changes</li>
+    <li><strong>Materials selected</strong> — stock vs. custom, budget vs. premium</li>
+    <li><strong>Labor</strong> — licensed and insured contractors vs. unlicensed crews</li>
+    <li><strong>Permits</strong> — required for structural, plumbing, and electrical work</li>
+    <li><strong>Project timeline</strong> — phased projects vs. full gut renovations</li>
+  </ul>
+
+  <h2>2026 REMODELING COST BREAKDOWN</h2>
+
+  <table class="cost-table">
+    <thead>
+      <tr>
+        <th>Project Type</th>
+        <th>Entry Level</th>
+        <th>Mid-Range</th>
+        <th>Premium</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Kitchen Remodel</td>
+        <td>$15,000–$25,000</td>
+        <td>$30,000–$60,000</td>
+        <td>$70,000+</td>
+      </tr>
+      <tr>
+        <td>Bathroom Remodel</td>
+        <td>$8,000–$15,000</td>
+        <td>$18,000–$35,000</td>
+        <td>$40,000+</td>
+      </tr>
+      <tr>
+        <td>Home Addition</td>
+        <td>$40,000–$80,000</td>
+        <td>$90,000–$150,000</td>
+        <td>$175,000+</td>
+      </tr>
+      <tr>
+        <td>Interior Painting</td>
+        <td>$2,500–$5,000</td>
+        <td>$6,000–$12,000</td>
+        <td>$14,000+</td>
+      </tr>
+      <tr>
+        <td>Flooring (per sq ft)</td>
+        <td>$4–$8</td>
+        <td>$9–$16</td>
+        <td>$18+</td>
+      </tr>
+      <tr>
+        <td>Whole-Home Remodel</td>
+        <td>$80,000–$150,000</td>
+        <td>$175,000–$300,000</td>
+        <td>$350,000+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>KITCHEN REMODELING COSTS</h2>
+  <p>Kitchen remodels remain the most popular home improvement project in Fort Worth — and for good reason. A well-executed kitchen renovation typically returns 60–80% of its cost in home value.</p>
+
+  <div class="tip-box">
+    <strong>💡 Alonso Tip:</strong>
+    <p>Keeping your existing kitchen layout — where your sink, stove, and refrigerator currently sit — can save you $5,000–$15,000 by avoiding plumbing and electrical relocation costs.</p>
+  </div>
+
+  <h2>BATHROOM REMODELING COSTS</h2>
+  <p>Bathroom remodels in Fort Worth range widely depending on size and finish level. A primary bathroom renovation with a walk-in shower, new vanity, tile floors, and updated fixtures typically runs $18,000–$35,000.</p>
+
+  <h2>HOME ADDITIONS</h2>
+  <p>Adding square footage to your Fort Worth home is a major investment but one of the most impactful ways to increase both livable space and property value. Room additions typically start around $40,000–$80,000.</p>
+
+  <h2>HOW TO BUDGET WISELY</h2>
+  <ul>
+    <li>Get at least 3 itemized bids from licensed contractors</li>
+    <li>Add a 10–15% contingency buffer for unexpected costs</li>
+    <li>Prioritize projects with the highest ROI first</li>
+    <li>Ask your contractor about phased timelines if budget is a concern</li>
+    <li>Verify that your contractor is licensed, insured, and pulls proper permits</li>
+  </ul>
+
+  <div class="tip-box">
+    <strong>⚠️ Watch Out For:</strong>
+    <p>Bids that seem significantly lower than others are often a red flag. Unlicensed contractors who skip permits can leave you with work that fails inspection — and becomes your financial responsibility.</p>
+  </div>
+
+  <h2>READY TO GET A REAL QUOTE?</h2>
+  <p>At Alonso Innovation, we provide transparent, itemized estimates for every project. No hidden fees, no vague numbers — just honest pricing from a team that stands behind its work.</p>
+
+  <div class="article-cta">
+    <h3>GET YOUR FREE ESTIMATE</h3>
+    <p>Serving Fort Worth, Dallas, Arlington, and surrounding cities.</p>
+    <a href="index.html#contact" class="btn-gold">Book a Consultation</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <p>Copyright © 2026 Alonso Innovation LLC™. All rights reserved.</p>
+    <p>Built and maintained by <a href="#">ERA Solutions</a></p>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
+</body>
+</html>
