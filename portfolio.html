@@ -13,9 +13,9 @@
 --gold: #c8a96e;
 --gold-light: #e0c48a;
 --gold-dark: #a8893e;
---dark: #0d0d0d;
---dark2: #141414;
---dark3: #1a1a1a;
+--dark: #0e0c0b;
+--dark2: #141210;
+--dark3: #1a1714;
 --white: #ffffff;
 --off-white: #f7f5f2;
 --gray: #888;
@@ -219,9 +219,9 @@ max-width: 480px;
 .hero-divider {
 width: 100%;
 height: 1px;
-background: linear-gradient(90deg, var(--gold) 0%, transparent 60%);
+background: linear-gradient(90deg, var(--gold) 0%, rgba(200,169,110,0.4) 40%, transparent 75%);
 margin-top: 60px;
-opacity: 0.3;
+opacity: 0.75;
 }
 
 /* ─── FILTER ─── */
@@ -262,26 +262,25 @@ border-color: var(--gold);
 color: var(--dark);
 }
 
-/* ─── MASONRY GRID ─── */
+/* ─── PORTFOLIO GRID ─── */
 .grid-section {
 padding: 40px 5% 100px;
 max-width: 1200px;
 margin: 0 auto;
 }
 
-.masonry-grid {
-columns: 3;
-column-gap: 14px;
+.portfolio-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
 }
 
 .portfolio-item {
-break-inside: avoid;
-margin-bottom: 14px;
-position: relative;
+aspect-ratio: 4 / 3;
 overflow: hidden;
 border-radius: 2px;
 cursor: pointer;
-display: block;
+position: relative;
 }
 
 .portfolio-item.hidden {
@@ -290,65 +289,15 @@ display: none;
 
 .portfolio-item img {
 width: 100%;
+height: 100%;
+object-fit: cover;
 display: block;
 transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .portfolio-item:hover img {
-transform: scale(1.05);
+transform: scale(1.04);
 }
-
-.item-overlay {
-position: absolute;
-inset: 0;
-background: linear-gradient(
-  to top,
-  rgba(13,13,13,0.90) 0%,
-  rgba(13,13,13,0.3) 50%,
-  transparent 100%
-);
-opacity: 0;
-transition: opacity 0.4s ease;
-display: flex;
-flex-direction: column;
-justify-content: flex-end;
-padding: 24px 20px;
-}
-
-.portfolio-item:hover .item-overlay {
-opacity: 1;
-}
-
-.item-category {
-font-family: var(--font-body);
-font-size: 0.65rem;
-font-weight: 700;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-color: var(--gold);
-margin-bottom: 6px;
-}
-
-.item-title {
-font-family: var(--font-heading);
-font-size: 1.5rem;
-letter-spacing: 2px;
-color: var(--white);
-}
-
-.item-border {
-position: absolute;
-inset: 0;
-border: 1.5px solid transparent;
-border-radius: 2px;
-transition: border-color 0.3s;
-pointer-events: none;
-}
-.portfolio-item:hover .item-border {
-border-color: rgba(200,169,110,0.45);
-}
-
-/* Featured items (first and second) span taller naturally due to image aspect ratio */
 
 /* ─── EMPTY STATE ─── */
 .no-results {
@@ -538,14 +487,14 @@ color: rgba(255,255,255,0.3);
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
-.masonry-grid { columns: 2; }
+.portfolio-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
 .nav-links, .nav-phone { display: none; }
 .hamburger { display: flex; }
 .portfolio-hero { padding: 130px 5% 60px; }
-.masonry-grid { columns: 2; }
+.portfolio-grid { grid-template-columns: repeat(2, 1fr); }
 .filter-bar { gap: 8px; }
 .filter-btn { font-size: 0.68rem; padding: 8px 14px; }
 .footer-top { grid-template-columns: 1fr 1fr; }
@@ -553,7 +502,7 @@ color: rgba(255,255,255,0.3);
 }
 
 @media (max-width: 480px) {
-.masonry-grid { columns: 1; }
+.portfolio-grid { grid-template-columns: 1fr; }
 .footer-top { grid-template-columns: 1fr; gap: 36px; }
 .footer-top > *:first-child { grid-column: auto; }
 .footer-bottom { flex-direction: column; text-align: center; }
@@ -616,7 +565,7 @@ color: rgba(255,255,255,0.3);
 
 <!-- ─── GRID ─── -->
 <div class="grid-section">
-  <div class="masonry-grid" id="masonryGrid">
+  <div class="portfolio-grid" id="portfolioGrid">
 
     <div class="portfolio-item fade-in" data-category="kitchen">
       <img
@@ -624,11 +573,6 @@ color: rgba(255,255,255,0.3);
         alt="Kitchen Remodel — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Kitchen Remodel</div>
-        <div class="item-title">Modern Kitchen</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in fade-in-delay-1" data-category="bathroom">
@@ -637,11 +581,6 @@ color: rgba(255,255,255,0.3);
         alt="Bathroom Renovation — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Bathroom Renovation</div>
-        <div class="item-title">Spa Bathroom</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in fade-in-delay-2" data-category="addition">
@@ -650,11 +589,6 @@ color: rgba(255,255,255,0.3);
         alt="Home Addition — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Home Addition</div>
-        <div class="item-title">House Extension</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in fade-in-delay-1" data-category="painting">
@@ -663,11 +597,6 @@ color: rgba(255,255,255,0.3);
         alt="Interior Painting — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Interior Painting</div>
-        <div class="item-title">Full Interior Repaint</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in fade-in-delay-2" data-category="construction">
@@ -676,11 +605,6 @@ color: rgba(255,255,255,0.3);
         alt="New Construction — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">New Construction</div>
-        <div class="item-title">Custom Build</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in" data-category="flooring">
@@ -689,11 +613,6 @@ color: rgba(255,255,255,0.3);
         alt="Flooring — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Flooring</div>
-        <div class="item-title">Hardwood Installation</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in fade-in-delay-1" data-category="kitchen">
@@ -702,11 +621,6 @@ color: rgba(255,255,255,0.3);
         alt="Kitchen Project — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Kitchen Remodel</div>
-        <div class="item-title">Island Kitchen</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in fade-in-delay-2" data-category="bathroom">
@@ -715,11 +629,6 @@ color: rgba(255,255,255,0.3);
         alt="Bathroom Project — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Bathroom Renovation</div>
-        <div class="item-title">Master Bathroom</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
     <div class="portfolio-item fade-in fade-in-delay-1" data-category="addition">
@@ -728,11 +637,6 @@ color: rgba(255,255,255,0.3);
         alt="Home Remodel — Alonso Innovation"
         loading="lazy"
       />
-      <div class="item-overlay">
-        <div class="item-category">Home Addition</div>
-        <div class="item-title">Full Home Remodel</div>
-      </div>
-      <div class="item-border"></div>
     </div>
 
   </div>
