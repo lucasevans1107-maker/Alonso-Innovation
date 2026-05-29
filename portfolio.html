@@ -224,47 +224,13 @@ margin-top: 60px;
 opacity: 0.75;
 }
 
-/* ─── FILTER ─── */
-.filter-section {
-padding: 40px 5% 0;
-max-width: 1200px;
-margin: 0 auto;
-}
-
-.filter-bar {
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
-align-items: center;
-}
-
-.filter-btn {
-font-family: var(--font-body);
-font-size: 0.72rem;
-font-weight: 600;
-letter-spacing: 0.15em;
-text-transform: uppercase;
-padding: 9px 20px;
-border: 1px solid rgba(255,255,255,0.15);
-background: transparent;
-color: rgba(255,255,255,0.5);
-border-radius: 2px;
-cursor: pointer;
-transition: all 0.25s;
-}
-.filter-btn:hover {
-border-color: var(--gold);
-color: var(--gold);
-}
-.filter-btn.active {
-background: var(--gold);
-border-color: var(--gold);
-color: var(--dark);
-}
-
 /* ─── PORTFOLIO GRID ─── */
 .grid-section {
-padding: 40px 5% 100px;
+background: var(--off-white);
+padding: 60px 5% 100px;
+}
+
+.grid-inner {
 max-width: 1200px;
 margin: 0 auto;
 }
@@ -299,16 +265,6 @@ transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 transform: scale(1.04);
 }
 
-/* ─── EMPTY STATE ─── */
-.no-results {
-display: none;
-text-align: center;
-padding: 80px 20px;
-color: rgba(255,255,255,0.3);
-font-size: 0.9rem;
-letter-spacing: 0.05em;
-}
-.no-results.visible { display: block; }
 
 /* ─── CTA STRIP ─── */
 .portfolio-cta {
@@ -495,8 +451,6 @@ color: rgba(255,255,255,0.3);
 .hamburger { display: flex; }
 .portfolio-hero { padding: 130px 5% 60px; }
 .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-.filter-bar { gap: 8px; }
-.filter-btn { font-size: 0.68rem; padding: 8px 14px; }
 .footer-top { grid-template-columns: 1fr 1fr; }
 .footer-top > *:first-child { grid-column: 1 / -1; }
 }
@@ -550,21 +504,9 @@ color: rgba(255,255,255,0.3);
   <div class="hero-divider"></div>
 </div>
 
-<!-- ─── FILTER ─── -->
-<div class="filter-section fade-in fade-in-delay-1">
-  <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">All Projects</button>
-    <button class="filter-btn" data-filter="kitchen">Kitchen Remodel</button>
-    <button class="filter-btn" data-filter="bathroom">Bathroom Renovation</button>
-    <button class="filter-btn" data-filter="addition">Home Addition</button>
-    <button class="filter-btn" data-filter="painting">Interior Painting</button>
-    <button class="filter-btn" data-filter="flooring">Flooring</button>
-    <button class="filter-btn" data-filter="construction">New Construction</button>
-  </div>
-</div>
-
 <!-- ─── GRID ─── -->
 <div class="grid-section">
+  <div class="grid-inner">
   <div class="portfolio-grid" id="portfolioGrid">
 
     <div class="portfolio-item fade-in" data-category="kitchen">
@@ -640,7 +582,7 @@ color: rgba(255,255,255,0.3);
     </div>
 
   </div>
-  <p class="no-results" id="noResults">No projects found in this category yet.</p>
+  </div>
 </div>
 
 <!-- ─── CTA ─── -->
@@ -733,31 +675,6 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ── Filter ──
-const filterBtns = document.querySelectorAll('.filter-btn');
-const items = document.querySelectorAll('.portfolio-item');
-const noResults = document.getElementById('noResults');
-
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const filter = btn.dataset.filter;
-    let visible = 0;
-
-    items.forEach(item => {
-      const match = filter === 'all' || item.dataset.category === filter;
-      item.classList.toggle('hidden', !match);
-      if (match) {
-        visible++;
-        item.classList.add('visible');
-      }
-    });
-
-    noResults.classList.toggle('visible', visible === 0);
-  });
-});
 </script>
 </body>
 </html>
