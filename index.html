@@ -35,13 +35,7 @@ overflow-x: hidden;
 
 /* ─── FADE-IN ANIMATION ─── */
 .fade-in {
-opacity: 0;
-transform: translateY(30px);
-transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.fade-in.visible {
-opacity: 1;
-transform: translateY(0);
+transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .fade-in-delay-1 { transition-delay: 0.1s; }
 .fade-in-delay-2 { transition-delay: 0.2s; }
@@ -208,19 +202,6 @@ background: rgba(0, 0, 0, 0.55);
 z-index: 1;
 }
 
-.hero-overlay {
-position: absolute;
-inset: 0;
-background: repeating-linear-gradient(
-0deg,
-transparent,
-transparent 2px,
-rgba(0,0,0,0.03) 2px,
-rgba(0,0,0,0.03) 4px
-);
-pointer-events: none;
-z-index: 2;
-}
 
 .hero-content {
 position: relative;
@@ -585,49 +566,33 @@ margin-top: 1px;
 /* ─── WHY CHOOSE US ─── */
 #why { background: var(--dark2); }
 #why .section-title { color: var(--white); }
-#why .section-label { color: rgba(255,255,255,0.5); }
 
-.why-grid {
+.credential-strip {
 display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 32px;
+grid-template-columns: 1fr 1px 1fr 1px 1fr;
 margin-bottom: 56px;
 }
-
-.why-card {
+.credential-divider {
+background: rgba(255,255,255,0.12);
+margin: 24px 0;
+}
+.credential-item {
+padding: 48px 36px;
 text-align: center;
-padding: 48px 32px;
-border: 1px solid rgba(255,255,255,0.12);
-border-radius: 4px;
-transition: border-color 0.3s, transform 0.3s;
 }
-.why-card:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-4px); }
-
-.why-icon {
-width: 64px; height: 64px;
-margin: 0 auto 24px;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.why-icon svg {
-width: 48px; height: 48px;
-stroke: var(--white);
-fill: none;
-stroke-width: 1.5;
-}
-
-.why-card h3 {
+.credential-item h3 {
 font-family: var(--font-heading);
-font-size: 1.8rem;
-letter-spacing: 3px;
+font-size: clamp(2rem, 3.5vw, 2.8rem);
+letter-spacing: 4px;
 color: var(--white);
 margin-bottom: 16px;
 }
-.why-card p {
+.credential-item p {
 font-size: 0.88rem;
 line-height: 1.8;
-color: rgba(255,255,255,0.6);
+color: rgba(255,255,255,0.65);
+max-width: 260px;
+margin: 0 auto;
 }
 
 #why .text-center { margin-top: 0; }
@@ -871,7 +836,7 @@ border-color: rgba(255,255,255,0.5);
 
 .consent-text {
 font-size: 0.77rem;
-color: rgba(255,255,255,0.4);
+color: rgba(255,255,255,0.62);
 line-height: 1.6;
 }
 .consent-text a { color: rgba(255,255,255,0.6); text-decoration: none; }
@@ -1052,7 +1017,7 @@ margin-bottom: 32px;
 
 .footer-service-area {
 font-size: 0.8rem;
-color: rgba(255,255,255,0.35);
+color: rgba(255,255,255,0.55);
 line-height: 1.8;
 margin-bottom: 24px;
 text-align: center;
@@ -1067,9 +1032,17 @@ gap: 12px;
 }
 .footer-bottom p {
 font-size: 0.8rem;
-color: rgba(255,255,255,0.3);
+color: rgba(255,255,255,0.55);
 }
-.footer-bottom a { color: rgba(255,255,255,0.55); text-decoration: none; }
+.footer-bottom a { color: rgba(255,255,255,0.7); text-decoration: none; }
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+.fade-in { transition: none; }
+.portfolio-track, .testimonials-track { animation-play-state: paused; }
+@keyframes scrollLine { 0%, 100% { transform: none; opacity: 1; } }
+.scroll-line { animation: none; }
+}
 
 /* ─── DIVIDER LINES ─── */
 .gold-line {
@@ -1102,7 +1075,8 @@ margin-bottom: 48px;
 .section-inner { padding: 72px 5%; }
 
 .services-grid { grid-template-columns: 1fr; }
-.why-grid { grid-template-columns: 1fr; gap: 20px; }
+.credential-strip { grid-template-columns: 1fr; }
+.credential-divider { width: 60%; height: 1px; margin: 0 auto; justify-self: center; }
 .blog-grid { grid-template-columns: 1fr; }
 .form-row { grid-template-columns: 1fr; }
 .footer-top { grid-template-columns: 1fr; gap: 36px; }
@@ -1169,9 +1143,8 @@ margin-bottom: 48px;
 <source src="https://t8ylbobddoh8clqs.public.blob.vercel-storage.com/Generated%20Video%20June%2005%2C%202026%20-%205_30PM.mp4" type="video/mp4">
 </video>
 <div class="hero-video-overlay"></div>
-<div class="hero-overlay"></div>
 <div class="hero-content fade-in">
-<span class="hero-eyebrow">Transforming Houses Into Dream Homes</span>
+<span class="hero-eyebrow">Kitchen · Bathroom · Additions · Painting · Flooring</span>
 <h1>FORT WORTH'S TRUSTED<br><em>HOME REMODELING</em><br>EXPERTS</h1>
 <a href="#contact" class="btn-gold">Book Now</a>
 </div>
@@ -1185,7 +1158,6 @@ margin-bottom: 48px;
 <section id="services">
 <div class="section-inner">
 <div class="text-center fade-in">
-<span class="section-label">What We Do</span>
 <h2 class="section-title">OUR REMODELING SERVICES</h2>
 <div class="gold-line center"></div>
 </div>
@@ -1273,11 +1245,10 @@ margin-bottom: 48px;
 <div class="section-inner">
 <div class="portfolio-header fade-in">
 <div>
-<span class="section-label">Our Work</span>
 <h2 class="section-title" style="color:var(--white);">OUR PORTFOLIO</h2>
 <div class="gold-line"></div>
 </div>
-<a href="#contact" class="btn-outline-gold">View All</a>
+<a href="portfolio.html" class="btn-outline-gold">View Full Portfolio</a>
 </div>
 </div>
 
@@ -1313,14 +1284,13 @@ margin-bottom: 48px;
 </div>
 </div>
 <div class="about-text fade-in fade-in-delay-2">
-<span class="section-label">About Us</span>
-<h2>TOP-TIER DESIGN.<br><em>SUPERIOR CRAFTSMANSHIP.</em></h2>
+<h2>FORT WORTH REMODELING.<br><em>BUILT ON CRAFT.</em></h2>
 <div class="gold-line"></div>
 <p>At Alonso Innovation, we deliver high-quality home remodeling in Fort Worth built on precision, professionalism, and attention to detail. From kitchen and bathroom renovations to full home transformations, our team combines thoughtful design with expert construction to create spaces that elevate your everyday living.</p>
 <ul class="trust-bullets">
 <li>Trusted by homeowners across Fort Worth and surrounding cities</li>
 <li>Quality materials and meticulous workmanship on every project</li>
-<li>Clear communication and streamlined project management</li>
+<li>One point of contact from first estimate to final walkthrough</li>
 </ul>
 <a href="#contact" class="btn-gold">Learn More</a>
 </div>
@@ -1332,39 +1302,27 @@ margin-bottom: 48px;
 <section id="why">
 <div class="section-inner">
 <div class="text-center fade-in">
-<span class="section-label">Our Promise</span>
 <h2 class="section-title">WHY CHOOSE US?</h2>
 <div class="gold-line center"></div>
 </div>
-<div class="why-grid">
-
-<div class="why-card fade-in fade-in-delay-1">
-<div class="why-icon">
-<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-</div>
+<div class="credential-strip">
+<div class="credential-item fade-in fade-in-delay-1">
 <h3>LICENSED</h3>
-<p>Fully licensed remodeling professionals committed to meeting industry standards, building codes, and delivering quality workmanship on every project.</p>
+<p>All permits, all building codes. Every project starts clean and ends fully compliant.</p>
 </div>
-
-<div class="why-card fade-in fade-in-delay-2">
-<div class="why-icon">
-<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12h6M12 9v6"/></svg>
-</div>
+<div class="credential-divider"></div>
+<div class="credential-item fade-in fade-in-delay-2">
 <h3>INSURED</h3>
-<p>Comprehensive insurance coverage protects your home and investment, giving you complete peace of mind throughout the remodeling process.</p>
+<p>Full liability and workers' comp on every job. Your home, your property, and our crew are all covered.</p>
 </div>
-
-<div class="why-card fade-in fade-in-delay-3">
-<div class="why-icon">
-<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-</div>
+<div class="credential-divider"></div>
+<div class="credential-item fade-in fade-in-delay-3">
 <h3>TRUSTED</h3>
-<p>Known for reliability, clear communication, and consistent results that homeowners confidently recommend to family and friends.</p>
+<p>Clear estimates, consistent timelines, and the results our clients send their neighbors to see.</p>
 </div>
-
 </div>
 <div class="text-center fade-in">
-<a href="#contact" class="btn-gold">Book Now</a>
+<a href="#contact" class="btn-gold">Request a Quote</a>
 </div>
 </div>
 </section>
@@ -1373,7 +1331,6 @@ margin-bottom: 48px;
 <section id="testimonials">
 <div class="section-inner" style="padding-bottom: 40px;">
 <div class="text-center fade-in">
-<span class="section-label">Client Reviews</span>
 <h2 class="section-title">WHAT OUR CLIENTS ARE SAYING</h2>
 <div class="gold-line center"></div>
 </div>
@@ -1498,7 +1455,6 @@ margin-bottom: 48px;
 <section id="blog">
 <div class="section-inner">
 <div class="text-center fade-in">
-<span class="section-label">Insights</span>
 <h2 class="section-title">REMODELING INSIGHTS &amp;<br>HOME RENOVATION TIPS</h2>
 <div class="gold-line center"></div>
 </div>
@@ -1545,7 +1501,7 @@ margin-bottom: 48px;
 <div class="contact-grid">
 <div class="contact-info fade-in">
 <span class="section-label">Get In Touch</span>
-<h2>LET'S BUILD YOUR<br>DREAM HOME<br>TOGETHER</h2>
+<h2>TELL US ABOUT<br>YOUR PROJECT</h2>
 <div class="gold-line"></div>
 <a class="contact-phone-big" href="tel:8176969578">(817) 696-9578</a>
 <p>Fort Worth, Texas</p>
@@ -1557,21 +1513,21 @@ margin-bottom: 48px;
 <div class="form-row">
 <div class="form-group">
 <label for="fullName">Full Name</label>
-<input type="text" id="fullName" name="fullName" placeholder="John Smith" required />
+<input type="text" id="fullName" name="fullName" placeholder="John Smith" autocomplete="name" required />
 </div>
 <div class="form-group">
 <label for="phone">Phone</label>
-<input type="tel" id="phone" name="phone" placeholder="(817) 555-0100" required />
+<input type="tel" id="phone" name="phone" placeholder="(817) 555-0100" autocomplete="tel" required />
 </div>
 </div>
 <div class="form-row">
 <div class="form-group">
 <label for="email">Email</label>
-<input type="email" id="email" name="email" placeholder="john@email.com" required />
+<input type="email" id="email" name="email" placeholder="john@email.com" autocomplete="email" required />
 </div>
 <div class="form-group">
 <label for="zip">Zip Code</label>
-<input type="text" id="zip" name="zip" placeholder="76101" />
+<input type="text" id="zip" name="zip" placeholder="76101" autocomplete="postal-code" />
 </div>
 </div>
 <div class="form-group">
@@ -1579,8 +1535,11 @@ margin-bottom: 48px;
 <textarea id="message" name="message" placeholder="Tell us about your project..."></textarea>
 </div>
 <p class="consent-text">By providing my phone number, I consent to receive text messages from Alonso Innovation LLC. &nbsp;<a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a></p>
+<p class="form-error" id="formError" style="display:none;color:#ff6b6b;font-size:0.82rem;line-height:1.5;margin-top:4px;">
+Something went wrong. Please call us at <a href="tel:8176969578" style="color:#ff9999;text-decoration:underline">(817) 696-9578</a>.
+</p>
 <div class="form-submit">
-<button type="submit" class="btn-gold">Book Now</button>
+<button type="submit" class="btn-gold">Request a Quote</button>
 </div>
 </form>
 </div>
@@ -1592,7 +1551,6 @@ margin-bottom: 48px;
 <section id="faq">
 <div class="section-inner">
 <div class="text-center fade-in">
-<span class="section-label">FAQ</span>
 <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
 <div class="gold-line center"></div>
 </div>
@@ -1757,14 +1715,22 @@ if (el) sectionObserver.observe(el);
 
 // ── Fade-in on scroll ──
 const fadeEls = document.querySelectorAll('.fade-in');
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  fadeEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+  });
+}
 const fadeObserver = new IntersectionObserver((entries) => {
 entries.forEach(entry => {
 if (entry.isIntersecting) {
+entry.target.style.opacity = '';
+entry.target.style.transform = '';
 entry.target.classList.add('visible');
 fadeObserver.unobserve(entry.target);
 }
 });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 fadeEls.forEach(el => fadeObserver.observe(el));
 
 // ── FAQ accordion ──
@@ -1778,21 +1744,51 @@ if (!isOpen) item.classList.add('open');
 });
 
 // ── Contact form ──
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+const WEBHOOK_URL = 'https://era-n8n-vps-n8n.xxj3ex.easypanel.host/webhook-test/bb5f1cfe-8bbe-429d-9077-623531888b0f';
+
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
 e.preventDefault();
-const btn = e.target.querySelector('button[type="submit"]');
-const original = btn.textContent;
-btn.textContent = 'Message Sent!';
-btn.style.background = '#4caf50';
-btn.style.borderColor = '#4caf50';
-btn.style.color = '#fff';
-setTimeout(() => {
-btn.textContent = original;
-btn.style.background = '';
-btn.style.borderColor = '';
-btn.style.color = '';
-e.target.reset();
-}, 3000);
+const form = e.target;
+const btn = form.querySelector('button[type="submit"]');
+const errMsg = document.getElementById('formError');
+const payload = {
+  fullName: form.fullName.value,
+  phone: form.phone.value,
+  email: form.email.value,
+  zip: form.zip.value,
+  message: form.message.value,
+  source: window.location.href,
+  timestamp: new Date().toISOString()
+};
+
+btn.disabled = true;
+btn.textContent = 'Sending…';
+errMsg.style.display = 'none';
+
+try {
+  const res = await fetch(WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('server error');
+  btn.textContent = 'Request Sent!';
+  btn.style.background = '#2a7a2a';
+  btn.style.borderColor = '#2a7a2a';
+  btn.style.color = '#fff';
+  form.reset();
+  setTimeout(() => {
+    btn.textContent = 'Request a Quote';
+    btn.style.background = '';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+    btn.disabled = false;
+  }, 4000);
+} catch {
+  errMsg.style.display = 'block';
+  btn.textContent = 'Request a Quote';
+  btn.disabled = false;
+}
 });
 
 // ── Smooth scroll for all anchor links ──
