@@ -834,13 +834,48 @@ border-color: rgba(255,255,255,0.5);
 
 .form-group textarea { min-height: 120px; }
 
-.consent-text {
+.consent-check {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+margin-top: 4px;
+}
+.consent-check input[type="checkbox"] {
+appearance: none;
+-webkit-appearance: none;
+width: 16px;
+height: 16px;
+min-width: 16px;
+border: 1px solid rgba(255,255,255,0.35);
+border-radius: 3px;
+background: transparent;
+cursor: pointer;
+margin-top: 2px;
+position: relative;
+transition: border-color 0.2s, background 0.2s;
+}
+.consent-check input[type="checkbox"]:checked {
+background: var(--gold);
+border-color: var(--gold);
+}
+.consent-check input[type="checkbox"]:checked::after {
+content: '';
+position: absolute;
+left: 4px;
+top: 1px;
+width: 5px;
+height: 9px;
+border: 2px solid #0A0806;
+border-top: none;
+border-left: none;
+transform: rotate(45deg);
+}
+.consent-check label {
 font-size: 0.77rem;
 color: rgba(255,255,255,0.62);
 line-height: 1.6;
+cursor: pointer;
 }
-.consent-text a { color: rgba(255,255,255,0.6); text-decoration: none; }
-.consent-text a:hover { text-decoration: underline; }
 
 .form-submit { margin-top: 4px; }
 
@@ -1534,7 +1569,10 @@ margin-bottom: 48px;
 <label for="message">Message</label>
 <textarea id="message" name="message" placeholder="Tell us about your project..."></textarea>
 </div>
-<p class="consent-text">By providing my phone number, I consent to receive text messages from Alonso Innovation LLC. &nbsp;<a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a></p>
+<div class="consent-check">
+<input type="checkbox" id="smsConsent" name="smsConsent" required />
+<label for="smsConsent">By checking this box, I agree to receive text messages from Alonso Innovation about my project inquiry. Message and data rates may apply. Message frequency may vary. Reply STOP to unsubscribe or HELP for help. Consent is not a condition of purchase.</label>
+</div>
 <p class="form-error" id="formError" style="display:none;color:#ff6b6b;font-size:0.82rem;line-height:1.5;margin-top:4px;">
 Something went wrong. Please call us at <a href="tel:8176969578" style="color:#ff9999;text-decoration:underline">(817) 696-9578</a>.
 </p>
