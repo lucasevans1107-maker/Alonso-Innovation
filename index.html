@@ -22,6 +22,7 @@
 --light-gray: #e0e0e0;
 --font-heading: 'Bebas Neue', sans-serif;
 --font-body: 'DM Sans', sans-serif;
+--gold: #C9A84C;
 }
 
 html { scroll-behavior: smooth; }
@@ -1158,7 +1159,7 @@ margin-bottom: 48px;
 <div class="nav-right">
 <ul class="nav-links">
 <li><a href="#services" data-section="services">Services</a></li>
-<li><a href="portfolio.html" data-section="portfolio">Portfolio</a></li>
+<li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
 <li><a href="#about" data-section="about">About</a></li>
 <li><a href="#blog" data-section="blog">Blog</a></li>
 <li><a href="#contact" data-section="contact">Contact</a></li>
@@ -1756,8 +1757,15 @@ document.body.style.overflow = '';
 
 // ── Sticky nav ──
 const navbar = document.getElementById('navbar');
+let scrollTicking = false;
 window.addEventListener('scroll', () => {
+if (!scrollTicking) {
+requestAnimationFrame(() => {
 navbar.classList.toggle('scrolled', window.scrollY > 60);
+scrollTicking = false;
+});
+scrollTicking = true;
+}
 });
 
 // ── Active nav on scroll ──
@@ -1809,7 +1817,7 @@ if (!isOpen) item.classList.add('open');
 });
 
 // ── Contact form ──
-const WEBHOOK_URL = 'https://era-n8n-vps-n8n.xxj3ex.easypanel.host/webhook-test/alonoso_web_form';
+const WEBHOOK_URL = 'https://era-n8n-vps-n8n.xxj3ex.easypanel.host/webhook/alonoso_web_form';
 
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
 e.preventDefault();
@@ -1832,12 +1840,16 @@ btn.disabled = true;
 btn.textContent = 'Sending…';
 errMsg.style.display = 'none';
 
+const controller = new AbortController();
+const fetchTimeout = setTimeout(() => controller.abort(), 10000);
 try {
   const res = await fetch(WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: controller.signal
   });
+  clearTimeout(fetchTimeout);
   if (!res.ok) throw new Error('server error');
   btn.textContent = 'Request Sent!';
   btn.style.background = '#2a7a2a';
@@ -1851,7 +1863,9 @@ try {
     btn.style.color = '';
     btn.disabled = false;
   }, 4000);
-} catch {
+} catch (err) {
+  clearTimeout(fetchTimeout);
+  console.error('Form submission failed:', err);
   errMsg.style.display = 'block';
   btn.textContent = 'Request a Quote';
   btn.disabled = false;
