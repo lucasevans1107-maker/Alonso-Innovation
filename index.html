@@ -195,6 +195,10 @@ height: 100%;
 object-fit: cover;
 z-index: 0;
 pointer-events: none;
+transition: opacity 1s ease;
+}
+.hero-video-b {
+opacity: 0;
 }
 
 .hero-video-overlay {
@@ -1187,7 +1191,10 @@ margin-bottom: 48px;
 
 <!-- ─── HERO ─── -->
 <section id="hero">
-<video class="hero-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback>
+<video class="hero-video hero-video-a" autoplay muted playsinline preload="auto" disablepictureinpicture disableremoteplayback>
+<source src="https://t8ylbobddoh8clqs.public.blob.vercel-storage.com/motion_flow_smooth%20%281%29.mp4" type="video/mp4">
+</video>
+<video class="hero-video hero-video-b" muted playsinline preload="auto" disablepictureinpicture disableremoteplayback>
 <source src="https://t8ylbobddoh8clqs.public.blob.vercel-storage.com/motion_flow_smooth%20%281%29.mp4" type="video/mp4">
 </video>
 <div class="hero-video-overlay"></div>
@@ -1890,42 +1897,100 @@ window.scrollTo({ top, behavior: 'smooth' });
 </script>
 
 <script>
-// Robust video autoplay — handles iOS Low Power Mode, Android, and desktop
+// Seamless dual-video crossfade loop — eliminates the pause/stutter on native loop
 (function() {
-  var video = document.querySelector('.hero-video');
-  if (!video) return;
+  var FADE   = 1.0;   // crossfade duration in seconds (matches CSS transition)
+  var AHEAD  = 1.2;   // seconds before end to start fading in the next video
 
-  // Ensure attributes are set programmatically for maximum compatibility
-  video.muted = true;
-  video.setAttribute('muted', '');
-  video.playsInline = true;
+  var vA = document.querySelector('.hero-video-a');
+  var vB = document.querySelector('.hero-video-b');
+  if (!vA || !vB) return;
 
-  var played = false;
-  var tryPlay = function() {
-    if (played) return;
-    var p = video.play();
+  // Ensure muted + playsInline programmatically for iOS compatibility
+  [vA, vB].forEach(function(v) {
+    v.muted = true;
+    v.setAttribute('muted', '');
+    v.playsInline = true;
+  });
+
+  var active  = vA;  // currently visible video
+  var standby = vB;  // preloaded, about to play
+  var swapping = false;
+
+  function swap() {
+    if (swapping) return;
+    swapping = true;
+
+    // Reset standby to beginning and start it playing
+    standby.currentTime = 0;
+    var p = standby.play();
+    var doSwap = function() {
+      // Fade in standby, fade out active
+      standby.style.opacity = '1';
+      standby.style.zIndex  = '1';
+      active.style.opacity  = '0';
+      active.style.zIndex   = '0';
+
+      var prev = active;
+      active   = standby;
+      standby  = prev;
+      swapping = false;
+
+      // Reset the old video in background so it's ready for next swap
+      setTimeout(function() {
+        prev.pause();
+        prev.currentTime = 0;
+      }, (FADE + 0.1) * 1000);
+    };
+
     if (p !== undefined) {
-      p.then(function() { played = true; }).catch(function() {
-        // Autoplay blocked — wait for any user interaction then retry
-        var events = ['touchstart', 'touchend', 'click', 'scroll', 'keydown'];
-        var handler = function() {
-          video.play().then(function() { played = true; }).catch(function() {});
-          events.forEach(function(e) { document.removeEventListener(e, handler); });
-        };
-        events.forEach(function(e) { document.addEventListener(e, handler, { once: true, passive: true }); });
-      });
+      p.then(doSwap).catch(function() { swapping = false; });
+    } else {
+      doSwap();
     }
-  };
-
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    tryPlay();
-  } else {
-    document.addEventListener('DOMContentLoaded', tryPlay);
   }
 
-  // Re-try after page becomes visible (tab switch, returning from background)
+  // Monitor active video's time and trigger swap when close to end
+  function tick() {
+    if (active.duration && active.currentTime >= active.duration - AHEAD - FADE) {
+      swap();
+    }
+  }
+
+  vA.addEventListener('timeupdate', tick);
+  vB.addEventListener('timeupdate', tick);
+
+  // Fallback: if video ends before swap triggered, swap immediately
+  vA.addEventListener('ended', function() { if (!swapping) swap(); });
+  vB.addEventListener('ended', function() { if (!swapping) swap(); });
+
+  // Initial play with retry for Low Power Mode / autoplay restrictions
+  var interactionEvents = ['touchstart', 'touchend', 'click', 'scroll', 'keydown'];
+  function tryPlay(v) {
+    var p = v.play();
+    if (p !== undefined) {
+      p.catch(function() {
+        var handler = function() {
+          v.play().catch(function() {});
+          interactionEvents.forEach(function(e) { document.removeEventListener(e, handler); });
+        };
+        interactionEvents.forEach(function(e) {
+          document.addEventListener(e, handler, { once: true, passive: true });
+        });
+      });
+    }
+  }
+
+  function init() { tryPlay(vA); }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+
   document.addEventListener('visibilitychange', function() {
-    if (!document.hidden) tryPlay();
+    if (!document.hidden) tryPlay(active);
   });
 })();
 </script>
