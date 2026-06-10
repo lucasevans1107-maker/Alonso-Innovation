@@ -1186,7 +1186,7 @@ margin-bottom: 48px;
 
 <!-- ─── HERO ─── -->
 <section id="hero">
-<video class="hero-video" autoplay muted loop playsinline preload="auto">
+<video class="hero-video" autoplay muted playsinline preload="auto">
 <source src="https://t8ylbobddoh8clqs.public.blob.vercel-storage.com/hero-clean.mp4" type="video/mp4">
 </video>
 <div class="hero-video-overlay"></div>
@@ -1871,6 +1871,16 @@ try {
   btn.disabled = false;
 }
 });
+
+// ── Seamless hero video loop ──
+const heroVideo = document.querySelector('.hero-video');
+if (heroVideo) {
+heroVideo.addEventListener('timeupdate', () => {
+if (heroVideo.duration && heroVideo.currentTime >= heroVideo.duration - 0.3) {
+heroVideo.currentTime = 0;
+}
+});
+}
 
 // ── Smooth scroll for all anchor links ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {
