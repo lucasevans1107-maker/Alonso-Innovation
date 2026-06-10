@@ -1187,7 +1187,7 @@ margin-bottom: 48px;
 <!-- ─── HERO ─── -->
 <section id="hero">
 <video class="hero-video" autoplay muted playsinline preload="auto">
-<source src="https://t8ylbobddoh8clqs.public.blob.vercel-storage.com/hero-clean.mp4" type="video/mp4">
+<source src="https://t8ylbobddoh8clqs.public.blob.vercel-storage.com/202606090936.mp4" type="video/mp4">
 </video>
 <div class="hero-video-overlay"></div>
 <div class="hero-content fade-in">
@@ -1894,6 +1894,31 @@ window.scrollTo({ top, behavior: 'smooth' });
 }
 });
 });
+</script>
+
+<script>
+// Force video play for Low Power Mode (iOS) and some Android browsers
+(function() {
+  var video = document.querySelector('.hero-video');
+  if (!video) return;
+  var tryPlay = function() {
+    var p = video.play();
+    if (p !== undefined) {
+      p.catch(function() {
+        // Retry on first user interaction if autoplay blocked
+        document.addEventListener('touchstart', function handler() {
+          video.play();
+          document.removeEventListener('touchstart', handler);
+        }, { once: true });
+      });
+    }
+  };
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    tryPlay();
+  } else {
+    document.addEventListener('DOMContentLoaded', tryPlay);
+  }
+})();
 </script>
 
 </body>
