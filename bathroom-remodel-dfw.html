@@ -1095,11 +1095,18 @@ section { position: relative; }
 @media (max-width: 768px) {
   #hero {
     grid-template-columns: 1fr;
-    min-height: auto;
+    min-height: 100vh;
+    background-image: url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/02Yf7hzCEatJpu2idvv1/media/698dff4295bc4ab007febb96.png');
+    background-size: cover;
+    background-position: center;
   }
-  .hero-right { order: -1; min-height: 300px; }
-  .hero-left { padding: 40px 5% 52px; }
-  .hero-right::after { background: rgba(0,0,0,0.35); }
+  .hero-right { display: none; }
+  .hero-left {
+    background: rgba(0,0,0,0.62);
+    padding: 80px 5% 60px;
+    min-height: 100vh;
+    justify-content: flex-end;
+  }
   .credentials-strip { grid-template-columns: 1fr; }
   .credential-divider { width: 60%; height: 1px; margin: 0 auto; justify-self: center; }
   .footer-cols { grid-template-columns: 1fr; gap: 32px; }
