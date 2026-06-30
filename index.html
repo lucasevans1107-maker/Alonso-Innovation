@@ -1854,6 +1854,8 @@ try {
   });
   clearTimeout(fetchTimeout);
   if (!res.ok) throw new Error('server error');
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'form_submission', service: form.service.value, page: window.location.pathname });
   btn.textContent = 'Request Sent!';
   btn.style.background = '#2a7a2a';
   btn.style.borderColor = '#2a7a2a';
@@ -1876,6 +1878,7 @@ try {
 });
 
 // hero-video loop is handled by the native `loop` attribute
+
 
 // ── Smooth scroll for all anchor links ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -1934,6 +1937,6 @@ window.scrollTo({ top, behavior: 'smooth' });
   });
 })();
 </script>
-
+<script src="gtm-tracking.js"></script>
 </body>
 </html>

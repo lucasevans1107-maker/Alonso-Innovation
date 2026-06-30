@@ -611,6 +611,7 @@ async function submitForm(form, btnEl, errEl) {
   try {
     const res = await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
     clearTimeout(timeout); if (!res.ok) throw new Error('server error');
+    window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'form_submission', service: payload.service, page: window.location.pathname });
     btnEl.textContent = 'Request Sent!'; btnEl.style.background = '#2a7a2a'; btnEl.style.borderColor = '#2a7a2a'; btnEl.style.color = '#fff'; form.reset();
     setTimeout(() => { btnEl.textContent = 'Request a Free Estimate'; btnEl.style.background = ''; btnEl.style.borderColor = ''; btnEl.style.color = ''; btnEl.disabled = false; }, 4000);
   } catch (err) { clearTimeout(timeout); errEl.style.display = 'block'; btnEl.textContent = 'Request a Free Estimate'; btnEl.disabled = false; }
@@ -618,5 +619,6 @@ async function submitForm(form, btnEl, errEl) {
 document.getElementById('additionsHeroForm').addEventListener('submit', async (e) => { e.preventDefault(); const btn = e.target.querySelector('button[type="submit"]'); await submitForm(e.target, btn, document.getElementById('additionsHeroFormError')); });
 document.getElementById('additionsBottomForm').addEventListener('submit', async (e) => { e.preventDefault(); const btn = e.target.querySelector('button[type="submit"]'); await submitForm(e.target, btn, document.getElementById('additionsBottomFormError')); });
 </script>
+<script src="gtm-tracking.js"></script>
 </body>
 </html>
