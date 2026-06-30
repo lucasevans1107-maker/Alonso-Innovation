@@ -560,26 +560,27 @@ section { position: relative; }
 .text-center { text-align: center; }
 .text-center .section-subtitle { margin-left: auto; margin-right: auto; }
 
-/* ─── SERVICES GRID ─── */
+/* ─── SERVICES ─── */
 #services { background: var(--off-white); }
 
-.services-grid-lp {
+.services-split {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2px;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
   background: var(--light-gray);
 }
 
 .service-item-lp {
   background: var(--white);
-  padding: 40px 36px;
+  padding: 44px 40px;
   transition: background 0.25s;
+  margin: 1px;
 }
-.service-item-lp:hover { background: var(--off-white); }
+.service-item-lp:hover { background: #fafafa; }
 
 .service-item-lp h3 {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   letter-spacing: 1.5px;
   color: var(--dark);
   margin-bottom: 12px;
@@ -587,7 +588,7 @@ section { position: relative; }
 
 .service-item-lp p {
   font-size: 0.88rem;
-  line-height: 1.75;
+  line-height: 1.78;
   color: var(--mid-gray);
 }
 
@@ -644,45 +645,65 @@ section { position: relative; }
 /* ─── PROCESS ─── */
 #process { background: var(--white); }
 
-.process-grid {
+.process-timeline {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.process-step-lp {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0;
+  grid-template-columns: 80px 1fr;
+  gap: 28px;
+  padding-bottom: 52px;
+  position: relative;
 }
+.process-step-lp:last-child { padding-bottom: 0; }
 
-.process-step {
-  padding: 48px 40px 48px 0;
-  border-right: 1px solid var(--light-gray);
-  padding-right: 48px;
+.process-step-lp::before {
+  content: '';
+  position: absolute;
+  left: 39px;
+  top: 60px;
+  bottom: 0;
+  width: 1px;
+  background: var(--light-gray);
 }
-.process-step:last-child { border-right: none; padding-right: 0; padding-left: 48px; }
-.process-step:nth-child(2) { padding-left: 48px; padding-right: 48px; }
+.process-step-lp:last-child::before { display: none; }
 
-.step-num {
+.step-num-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
-  font-size: 4rem;
-  letter-spacing: 2px;
-  color: var(--light-gray);
-  line-height: 1;
-  margin-bottom: 16px;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  color: var(--white);
+  flex-shrink: 0;
+  margin-left: 10px;
 }
 
-.process-step h3 {
+.process-body h3 {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   letter-spacing: 1.5px;
   color: var(--dark);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  padding-top: 12px;
 }
 
-.process-step p {
-  font-size: 0.88rem;
+.process-body p {
+  font-size: 0.9rem;
   line-height: 1.78;
   color: var(--mid-gray);
 }
 
 /* ─── CREDENTIALS ─── */
-#credentials { background: var(--dark2); }
+#credentials { background: var(--dark); }
 
 .credentials-strip {
   display: grid;
@@ -1169,14 +1190,6 @@ section { position: relative; }
 }
 
 @media (max-width: 1024px) {
-  .process-grid { grid-template-columns: 1fr; gap: 0; }
-  .process-step {
-    padding: 36px 0;
-    border-right: none;
-    border-bottom: 1px solid var(--light-gray);
-  }
-  .process-step:last-child { border-bottom: none; padding-left: 0; }
-  .process-step:nth-child(2) { padding-left: 0; padding-right: 0; }
 }
 
 @media (max-width: 768px) {
@@ -1188,7 +1201,11 @@ section { position: relative; }
   .form-row { grid-template-columns: 1fr; }
   .mobile-phone-bar { display: flex; }
   body { padding-bottom: 68px; }
-  .services-grid-lp { grid-template-columns: 1fr; }
+  .services-split { grid-template-columns: 1fr; }
+  .process-step-lp { grid-template-columns: 1fr; gap: 12px; }
+  .process-step-lp::before { display: none; }
+  .step-num-circle { margin-left: 0; width: 48px; height: 48px; font-size: 1.2rem; }
+  .process-body h3 { padding-top: 0; }
 }
 
 @media (max-width: 480px) {
@@ -1336,7 +1353,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="section-subtitle">Every bathroom remodel in DFW is different. We scope your project around your space, your preferences, and your budget — then build it right.</p>
     </div>
   </div>
-  <div class="services-grid-lp">
+  <div class="services-split">
 
     <div class="service-item-lp fade-in">
       <h3>Custom Tile Work</h3>
@@ -1443,24 +1460,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="text-center fade-in">
       <h2 class="section-title">HOW YOUR BATHROOM REMODEL WORKS</h2>
       <div class="section-line center"></div>
-      <p class="section-subtitle">Three clear steps from first call to final walkthrough. No surprises on the invoice, no unexplained delays on the calendar.</p>
+      <p class="section-subtitle">A clear process so you know what to expect from the first phone call to the day you step into your finished bathroom.</p>
     </div>
-    <div class="process-grid">
-      <div class="process-step fade-in">
-        <div class="step-num">01</div>
-        <h3>Free In-Home Estimate</h3>
-        <p>Call or submit the form and we'll schedule a walkthrough at your home. We measure the space, listen to what you want, and build a detailed written estimate — at no cost.</p>
+
+    <div class="process-timeline">
+
+      <div class="process-step-lp fade-in">
+        <div class="step-num-circle">01</div>
+        <div class="process-body">
+          <h3>Free In-Home Estimate</h3>
+          <p>We visit your home, walk through the bathroom, take measurements, and listen carefully to what you want. You get a written estimate with a clear line-by-line breakdown — no vague lump sums. There's no fee and no commitment.</p>
+        </div>
       </div>
-      <div class="process-step fade-in fd1">
-        <div class="step-num">02</div>
-        <h3>Design, Materials &amp; Timeline</h3>
-        <p>Choose tile, fixtures, vanities, and layout. We present options that fit your vision and your budget, then lock in a start date and timeline. Permits are our responsibility.</p>
+
+      <div class="process-step-lp fade-in fd1">
+        <div class="step-num-circle">02</div>
+        <div class="process-body">
+          <h3>Design, Selection &amp; Timeline</h3>
+          <p>Choose tile, fixtures, vanities, and layout. We help you navigate options across different price points and lock in selections that fit your vision. Permits are our responsibility. You get a fixed start date and project calendar.</p>
+        </div>
       </div>
-      <div class="process-step fade-in fd2">
-        <div class="step-num">03</div>
-        <h3>Expert Build. Clean Site.</h3>
-        <p>Our crew shows up on schedule and works a clean job site every day. When we're done, we walk you through the finished bathroom before we call it complete.</p>
+
+      <div class="process-step-lp fade-in fd2">
+        <div class="step-num-circle">03</div>
+        <div class="process-body">
+          <h3>Expert Build. Organized Site.</h3>
+          <p>Our crew arrives on schedule, protects adjacent areas, and works an organized site every day. Progress updates keep you informed. When the bathroom is finished, we walk through every detail before we call it done.</p>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
