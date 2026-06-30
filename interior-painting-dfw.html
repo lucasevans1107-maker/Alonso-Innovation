@@ -1846,6 +1846,8 @@ async function submitForm(form, btnEl, errEl) {
     });
     clearTimeout(timeout);
     if (!res.ok) throw new Error('server error');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'form_submission', service: payload.service, page: window.location.pathname });
     btnEl.textContent = 'Request Sent!';
     btnEl.style.background = '#2a7a2a';
     btnEl.style.borderColor = '#2a7a2a';
@@ -1878,6 +1880,6 @@ document.getElementById('interiorPaintingBottomForm').addEventListener('submit',
   await submitForm(e.target, btn, document.getElementById('interiorPaintingBottomFormError'));
 });
 </script>
-
+<script src="gtm-tracking.js"></script>
 </body>
 </html>
