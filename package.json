@@ -1,0 +1,19 @@
+{
+  "name": "alonso-innovation",
+  "version": "1.0.0",
+  "description": "Alonso Innovation - Fort Worth Home Remodeling",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build required'"
+  },
+  "keywords": [
+    "home-remodeling",
+    "fort-worth"
+  ],
+  "author": "Alonso Innovation",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
