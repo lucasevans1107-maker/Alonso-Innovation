@@ -128,7 +128,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.leadconnectorhq.com" crossorigin />
+<link rel="preconnect" href="https://storage.googleapis.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<!-- Hero background is set in CSS, so the preload scanner cannot find it on its own -->
+<link rel="preload" as="image" fetchpriority="high" media="(max-width: 768px)" href="https://images.leadconnectorhq.com/image/f_webp/q_80/r_800/u_https://assets.cdn.filesafe.space/02Yf7hzCEatJpu2idvv1/media/698dff4295bc4ab007febb96.png" />
+<link rel="preload" as="image" fetchpriority="high" media="(min-width: 769px)" href="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/02Yf7hzCEatJpu2idvv1/media/698dff4295bc4ab007febb96.png" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1214,6 +1221,184 @@ section { position: relative; }
   .testimonial-card { width: 300px; }
   .hero-form-card { padding: 28px 20px; }
 }
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE CRO LAYER
+   New components are hidden by default and switched on inside the
+   mobile media query below, so the desktop layout is untouched.
+   ═══════════════════════════════════════════════════════════════ */
+
+.hero-cta-mobile { display: none; }
+.hero-sub-short { display: none; }
+.mid-cta { display: none; }
+.hf-more, .cf-more { display: none; }
+.form-reassure { display: none; }
+.hf-optional { display: flex; flex-direction: column; gap: 12px; }
+.cf-optional { display: flex; flex-direction: column; gap: 14px; }
+
+/* ─── Confirmation panel (replaces the form after a successful submit) ─── */
+.form-success { display: none; }
+.form-success.show { display: block; text-align: center; padding: 8px 0 4px; }
+.fs-check {
+  width: 52px; height: 52px; margin: 0 auto 16px; border-radius: 50%;
+  background: var(--gold); display: flex; align-items: center; justify-content: center;
+}
+.fs-check svg { width: 26px; height: 26px; stroke: #0A0806; stroke-width: 3; fill: none; }
+.form-success h4 {
+  font-family: var(--font-heading); font-size: 1.55rem; letter-spacing: 1.5px; margin-bottom: 8px;
+}
+.form-success p { font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; }
+.fs-call {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 52px; padding: 12px 28px; background: var(--gold); color: #0A0806;
+  font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; border-radius: 2px;
+}
+.fs-call svg { width: 16px; height: 16px; fill: currentColor; }
+.hero-form-card .form-success h4 { color: var(--dark); }
+.hero-form-card .form-success p { color: var(--mid-gray); }
+#bottomFormSuccess h4 { color: var(--white); }
+#bottomFormSuccess p { color: rgba(255,255,255,0.62); }
+
+/* ═════════════════════ MOBILE (≤768px) ═════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── HERO: compressed so the estimate form sits within one short scroll ── */
+  #hero {
+    min-height: auto;
+    padding-top: 62px;
+    align-items: flex-start;
+    background-image: url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_800/u_https://assets.cdn.filesafe.space/02Yf7hzCEatJpu2idvv1/media/698dff4295bc4ab007febb96.png');
+  }
+  .hero-overlay { background: rgba(0,0,0,0.78); }
+  .hero-inner { padding: 20px 5% 30px; gap: 18px; }
+  .hero-tag { font-size: 0.62rem; letter-spacing: 3px; margin-bottom: 8px; }
+  .hero-h1 { font-size: clamp(2.35rem, 11.5vw, 3.3rem); line-height: 0.95; letter-spacing: 1px; margin-bottom: 10px; }
+  /* wrap naturally to 2 lines instead of the forced 4; the markup keeps a
+     space before each <br> so the words stay separated when it is hidden */
+  .hero-h1 br { display: none; }
+  .hero-sub-long { display: none; }
+  .hero-sub-short { display: block; font-size: 0.92rem; line-height: 1.55; margin-bottom: 14px; }
+  .hero-trust-row { gap: 7px 13px; margin-bottom: 15px; }
+  .hero-trust-item { font-size: 0.71rem; gap: 5px; }
+
+  /* the plain phone-number text becomes a real thumb-sized button */
+  .hero-phone-row { display: none; }
+  .hero-cta-mobile { display: flex; flex-direction: column; gap: 9px; }
+  .hero-call-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 14px 20px; background: var(--gold); color: #0A0806;
+    font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; border-radius: 3px;
+  }
+  .hero-call-btn svg { width: 19px; height: 19px; fill: currentColor; flex-shrink: 0; }
+  .hero-cta-note { font-size: 0.72rem; color: rgba(255,255,255,0.68); text-align: center; }
+
+  /* ── FORMS ── */
+  .hero-form-card { padding: 24px 18px; max-width: none; }
+  .hero-form-card h3 { font-size: 1.55rem; }
+  .hero-form-card p { font-size: 0.85rem; margin-bottom: 18px; }
+  .hero-form { gap: 11px; }
+
+  /* 16px inputs stop iOS Safari zooming the page on focus */
+  .hf-group input, .hf-group select, .hf-group textarea,
+  .form-group input, .form-group select, .form-group textarea {
+    font-size: 16px; padding: 13px 14px; min-height: 52px; border-radius: 3px;
+  }
+  .hf-group textarea, .form-group textarea { min-height: 88px; }
+  .hf-group label, .form-group label { font-size: 0.7rem; }
+
+  /* the consent box is required to submit but was a 15px tap target */
+  .hf-consent, .consent-check { align-items: center; gap: 12px; padding: 4px 0; }
+  .hf-consent input[type="checkbox"], .consent-check input[type="checkbox"] {
+    width: 26px; height: 26px; min-width: 26px; margin-top: 0;
+  }
+  .hf-consent input[type="checkbox"]:checked::after,
+  .consent-check input[type="checkbox"]:checked::after {
+    left: 9px; top: 4px; width: 7px; height: 13px; border-width: 2.5px;
+  }
+  .hf-consent label, .consent-check label { font-size: 0.74rem; line-height: 1.5; }
+
+  /* optional fields collapse behind a toggle — the form opens at 2 fields */
+  .hf-optional, .cf-optional { display: none; }
+  .hf-optional.open, .cf-optional.open { display: flex; }
+  .hf-more, .cf-more {
+    display: block; width: 100%; background: none; border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+    text-align: left; padding: 10px 2px; min-height: 44px;
+  }
+  .hf-more { color: var(--mid-gray); }
+  .cf-more { color: rgba(255,255,255,0.6); }
+  .hf-more::before, .cf-more::before { content: '+ '; font-weight: 700; }
+  .hf-more[aria-expanded="true"]::before, .cf-more[aria-expanded="true"]::before { content: '– '; }
+
+  .hero-form button[type="submit"], .contact-form button[type="submit"] {
+    min-height: 58px; font-size: 0.88rem; letter-spacing: 2px; padding: 16px 20px;
+  }
+  .form-reassure { display: block; text-align: center; font-size: 0.72rem; line-height: 1.5; }
+  .hero-form .form-reassure { color: var(--mid-gray); }
+  .contact-form .form-reassure { color: rgba(255,255,255,0.55); }
+
+  /* ── PROOF: swipeable instead of auto-scrolling past the reader ── */
+  .gallery-track-wrapper, .testimonials-track-wrapper {
+    overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory; scroll-padding-left: 5%;
+    padding: 0 5% 40px; scrollbar-width: none;
+  }
+  .gallery-track-wrapper::-webkit-scrollbar,
+  .testimonials-track-wrapper::-webkit-scrollbar { display: none; }
+  .gallery-track, .testimonials-track { animation: none; }
+  .gallery-card, .testimonial-card { scroll-snap-align: center; }
+  /* the marquee duplicates only existed for the infinite loop */
+  .gallery-card:nth-child(n+9) { display: none; }
+  .testimonial-card:nth-child(n+5) { display: none; }
+
+  /* ── MID-PAGE CTA ── */
+  .mid-cta { display: block; background: var(--dark2); }
+  .mid-cta-inner { padding: 44px 5%; text-align: center; }
+  .mid-cta-inner h2 {
+    font-family: var(--font-heading); font-size: 2rem; letter-spacing: 1.5px;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .mid-cta-inner p { font-size: 0.9rem; line-height: 1.65; color: rgba(255,255,255,0.62); margin-bottom: 22px; }
+  .mid-cta-call, .mid-cta-form {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 14px 20px; font-family: var(--font-body);
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none; border-radius: 3px;
+  }
+  .mid-cta-call { background: var(--gold); color: #0A0806; margin-bottom: 10px; }
+  .mid-cta-call svg { width: 17px; height: 17px; fill: currentColor; }
+  .mid-cta-form { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.35); }
+
+  /* ── STICKY ACTION BAR ── */
+  .mobile-phone-bar {
+    display: block;
+    padding: 8px 14px calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.16);
+  }
+  .mob-bar-note {
+    font-size: 0.63rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--mid-gray); text-align: center; margin-bottom: 7px;
+  }
+  .mob-bar-actions { display: flex; gap: 10px; }
+  .mobile-phone-bar a {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 52px; padding: 10px 8px; font-size: 0.8rem;
+  }
+  .mobile-phone-bar .mob-call { background: var(--gold); color: #0A0806; border: 2px solid var(--gold); }
+  .mobile-phone-bar .mob-call svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+  body { padding-bottom: calc(94px + env(safe-area-inset-bottom)); }
+
+  /* ── BOTTOM CTA ── */
+  .cta-grid { gap: 32px; }
+}
+
+@media (max-width: 480px) {
+  .gallery-card { width: 84vw; height: 62vw; }
+  .testimonial-card { width: 84vw; }
+  .hero-form-card { padding: 22px 16px; }
+}
 </style>
 </head>
 <body>
@@ -1242,8 +1427,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-content">
       <span class="hero-tag fade-in">DFW Bathroom Remodeling</span>
-      <h1 class="hero-h1 fade-in fd1">BATHROOM<br>REMODEL<br>EXPERTS<br>IN DFW</h1>
-      <p class="hero-sub fade-in fd2">Custom tile, walk-in shower conversions, vanity upgrades, and complete bathroom renovations across Fort Worth, Dallas, and Arlington — built to last.</p>
+      <h1 class="hero-h1 fade-in fd1">BATHROOM <br>REMODEL <br>EXPERTS <br>IN DFW</h1>
+      <p class="hero-sub hero-sub-long fade-in fd2">Custom tile, walk-in shower conversions, vanity upgrades, and complete bathroom renovations across Fort Worth, Dallas, and Arlington — built to last.</p>
+      <p class="hero-sub hero-sub-short fade-in fd2">Walk-in showers, custom tile, and full bathroom renovations across DFW.</p>
       <div class="hero-trust-row fade-in fd2">
         <div class="hero-trust-item">
           <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1261,6 +1447,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="hero-phone-row fade-in fd3">
         <a class="hero-phone-big" href="tel:8884158347">(888) 415-8347</a>
       </div>
+      <div class="hero-cta-mobile fade-in fd3">
+        <a class="hero-call-btn" href="tel:8884158347" data-cta="hero-call">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call (888) 415-8347
+        </a>
+        <span class="hero-cta-note">Free estimate &middot; Same-day response &middot; Mon&ndash;Sat 8am&ndash;6pm</span>
+      </div>
     </div>
 
     <div class="hero-form-card fade-in fd2">
@@ -1275,13 +1468,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <label for="hfPhone">Phone Number</label>
           <input type="tel" id="hfPhone" name="phone" placeholder="(817) 555-0100" autocomplete="tel" required />
         </div>
-        <div class="hf-group">
-          <label for="hfEmail">Email Address</label>
-          <input type="email" id="hfEmail" name="email" placeholder="john@email.com" autocomplete="email" />
-        </div>
-        <div class="hf-group">
-          <label for="hfMessage">Tell Us About Your Bathroom</label>
-          <textarea id="hfMessage" name="message" placeholder="What are you hoping to change? Any timeline in mind?"></textarea>
+        <button type="button" class="hf-more" aria-expanded="false" aria-controls="hfOptional">Add email &amp; project details (optional)</button>
+        <div class="hf-optional" id="hfOptional">
+          <div class="hf-group">
+            <label for="hfEmail">Email Address</label>
+            <input type="email" id="hfEmail" name="email" placeholder="john@email.com" autocomplete="email" />
+          </div>
+          <div class="hf-group">
+            <label for="hfMessage">Tell Us About Your Bathroom</label>
+            <textarea id="hfMessage" name="message" placeholder="What are you hoping to change? Any timeline in mind?"></textarea>
+          </div>
         </div>
         <div class="hf-consent">
           <input type="checkbox" id="hfConsent" name="smsConsent" required />
@@ -1291,7 +1487,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           Something went wrong. Please call us at <a href="tel:8884158347">(888) 415-8347</a>.
         </p>
         <button type="submit" class="btn-primary-dark" style="width:100%;text-align:center;padding:14px 38px">Request a Free Estimate</button>
+        <p class="form-reassure">No obligation. We never share your information.</p>
       </form>
+      <div class="form-success" id="heroFormSuccess" role="status" aria-live="polite">
+        <div class="fs-check"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h4>REQUEST RECEIVED</h4>
+        <p>We'll text you shortly to schedule your free in-person estimate. Want to talk right now?</p>
+        <a class="fs-call" href="tel:8884158347" data-cta="success-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg> Call (888) 415-8347</a>
+      </div>
     </div>
 
   </div>
@@ -1398,7 +1601,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="portfolio.html" class="btn-primary fade-in" aria-label="View full portfolio">View Full Portfolio</a>
   </div>
 
-  <div class="gallery-track-wrapper">
+  <div class="gallery-track-wrapper" tabindex="0" role="group" aria-label="Project photos, scrollable">
     <div class="gallery-track">
       <!-- Set 1 -->
       <div class="gallery-card">
@@ -1451,6 +1654,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="gallery-img" style="background-image:url('https://assets.cdn.filesafe.space/02Yf7hzCEatJpu2idvv1/media/698e7731899b888a30e92b46.png')" role="img" aria-label="Bathroom tile work Dallas"></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── MID-PAGE CTA (mobile) ─── -->
+<section class="mid-cta" aria-label="Get a free estimate">
+  <div class="mid-cta-inner">
+    <h2>LIKE WHAT YOU SEE?</h2>
+    <p>Tell us about your bathroom and we'll come measure it in person. Free estimate, no pressure, same-day response.</p>
+    <a class="mid-cta-call" href="tel:8884158347" data-cta="mid-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg> Call (888) 415-8347</a>
+    <a class="mid-cta-form" href="#bottom-cta" data-cta="mid-quote">Request Free Estimate</a>
   </div>
 </section>
 
@@ -1531,7 +1744,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <div class="testimonials-track-wrapper">
+  <div class="testimonials-track-wrapper" tabindex="0" role="group" aria-label="Customer reviews, scrollable">
     <div class="testimonials-track">
       <!-- Set 1 -->
       <div class="testimonial-card">
@@ -1699,16 +1912,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <input type="tel" id="bPhone" name="phone" placeholder="(817) 555-0100" autocomplete="tel" required />
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bEmail">Email Address</label>
-              <input type="email" id="bEmail" name="email" placeholder="john@email.com" autocomplete="email" />
-            </div>
-            <div class="form-group">
-              <label for="bAddress">Home Address</label>
-              <input type="text" id="bAddress" name="address" placeholder="123 Main St, Fort Worth, TX" autocomplete="street-address" />
-            </div>
-          </div>
           <div class="form-group">
             <label for="bService">Service Needed</label>
             <select id="bService" name="service" required>
@@ -1721,9 +1924,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option value="Other">Other</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="bMessage">Tell Us About Your Project <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.72rem;color:rgba(255,255,255,0.3)">(optional)</span></label>
-            <textarea id="bMessage" name="message" placeholder="What are you looking to change? Any timeline or budget in mind?"></textarea>
+          <button type="button" class="cf-more" aria-expanded="false" aria-controls="cfOptional">Add email, address &amp; project details (optional)</button>
+          <div class="cf-optional" id="cfOptional">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bEmail">Email Address</label>
+                <input type="email" id="bEmail" name="email" placeholder="john@email.com" autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label for="bAddress">Home Address</label>
+                <input type="text" id="bAddress" name="address" placeholder="123 Main St, Fort Worth, TX" autocomplete="street-address" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="bMessage">Tell Us About Your Project <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.72rem;color:rgba(255,255,255,0.3)">(optional)</span></label>
+              <textarea id="bMessage" name="message" placeholder="What are you looking to change? Any timeline or budget in mind?"></textarea>
+            </div>
           </div>
           <div class="consent-check">
             <input type="checkbox" id="bSmsConsent" name="smsConsent" required />
@@ -1733,7 +1949,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             Something went wrong. Please call us at <a href="tel:8884158347">(888) 415-8347</a>.
           </p>
           <button type="submit" class="btn-primary" style="width:100%;text-align:center">Request a Free Estimate</button>
+          <p class="form-reassure">No obligation. We never share your information.</p>
         </form>
+        <div class="form-success" id="bottomFormSuccess" role="status" aria-live="polite">
+          <div class="fs-check"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h4>REQUEST RECEIVED</h4>
+          <p>We'll text you shortly to schedule your free in-person estimate. Want to talk right now?</p>
+          <a class="fs-call" href="tel:8884158347" data-cta="success-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg> Call (888) 415-8347</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1788,8 +2011,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ─── MOBILE PHONE BAR ─── -->
 <div class="mobile-phone-bar" aria-label="Quick contact actions">
-  <a class="mob-call" href="tel:8884158347">Call Now</a>
-  <a class="mob-quote" href="#bottom-cta">Get Free Quote</a>
+  <p class="mob-bar-note">Free Estimates &middot; Licensed &amp; Insured</p>
+  <div class="mob-bar-actions">
+    <a class="mob-call" href="tel:8884158347" data-cta="sticky-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg> Call Now</a>
+    <a class="mob-quote" href="#bottom-cta" data-cta="sticky-quote">Free Estimate</a>
+  </div>
 </div>
 
 <!-- ─── JAVASCRIPT ─── -->
@@ -1841,10 +2067,57 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
+// ── Phone auto-formatting ──
+document.querySelectorAll('input[type="tel"]').forEach(input => {
+  input.setAttribute('inputmode', 'tel');
+  input.setAttribute('enterkeyhint', 'next');
+  input.addEventListener('input', () => {
+    const d = input.value.replace(/\D/g, '').slice(0, 10);
+    if (!d) { input.value = ''; return; }
+    if (d.length < 4) input.value = '(' + d;
+    else if (d.length < 7) input.value = '(' + d.slice(0, 3) + ') ' + d.slice(3);
+    else input.value = '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+  });
+});
+
+// ── Optional-field disclosure ──
+document.querySelectorAll('.hf-more, .cf-more').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!panel) return;
+    const open = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      const first = panel.querySelector('input, textarea, select');
+      if (first) first.focus();
+    }
+  });
+});
+
+// ── form_start fires once per form, so starts vs. submissions can be
+//    compared in GTM and the drop-off actually measured ──
+document.querySelectorAll('form').forEach(form => {
+  let started = false;
+  form.addEventListener('focusin', () => {
+    if (started) return;
+    started = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'form_start', form_id: form.id, page: window.location.pathname });
+  });
+});
+
+// ── CTA click tracking ──
+document.querySelectorAll('[data-cta]').forEach(el => {
+  el.addEventListener('click', () => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'cta_click', cta_id: el.getAttribute('data-cta'), page: window.location.pathname });
+  });
+});
+
 // ── Form submission ──
 const WEBHOOK = 'https://era-n8n-vps-n8n.xxj3ex.easypanel.host/webhook/alonoso_web_form';
 
-async function submitForm(form, btnEl, errEl) {
+async function submitForm(form, btnEl, errEl, successEl) {
   const payload = {
     fullName: form.fullName.value,
     phone: form.phone.value,
@@ -1871,22 +2144,17 @@ async function submitForm(form, btnEl, errEl) {
     clearTimeout(timeout);
     if (!res.ok) throw new Error('server error');
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'form_submission', service: payload.service, page: window.location.pathname });
-    btnEl.textContent = 'Request Sent!';
-    btnEl.style.background = '#2a7a2a';
-    btnEl.style.borderColor = '#2a7a2a';
-    btnEl.style.color = '#fff';
+    window.dataLayer.push({ event: 'form_submission', service: payload.service, form_id: form.id, page: window.location.pathname });
     form.reset();
-    setTimeout(() => {
-      btnEl.textContent = 'Request a Free Estimate';
-      btnEl.style.background = '';
-      btnEl.style.borderColor = '';
-      btnEl.style.color = '';
-      btnEl.disabled = false;
-    }, 4000);
+    // Swap the form for a confirmation panel and scroll it into view — on a
+    // phone the submit button is usually off-screen by the time this resolves.
+    form.style.display = 'none';
+    successEl.classList.add('show');
+    successEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
   } catch (err) {
     clearTimeout(timeout);
     errEl.style.display = 'block';
+    errEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
     btnEl.textContent = 'Request a Free Estimate';
     btnEl.disabled = false;
   }
@@ -1895,13 +2163,13 @@ async function submitForm(form, btnEl, errEl) {
 document.getElementById('bathroomHeroForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('button[type="submit"]');
-  await submitForm(e.target, btn, document.getElementById('bathroomHeroFormError'));
+  await submitForm(e.target, btn, document.getElementById('bathroomHeroFormError'), document.getElementById('heroFormSuccess'));
 });
 
 document.getElementById('bathroomForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('button[type="submit"]');
-  await submitForm(e.target, btn, document.getElementById('bathroomFormError'));
+  await submitForm(e.target, btn, document.getElementById('bathroomFormError'), document.getElementById('bottomFormSuccess'));
 });
 </script>
 <script src="gtm-tracking.js"></script>
