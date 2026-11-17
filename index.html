@@ -15,6 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 
 :root {
 --accent: #ffffff;
@@ -243,6 +244,13 @@ font-style: normal;
 color: var(--white);
 }
 
+.hero-actions {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 14px;
+}
+
 .btn-gold {
 display: inline-block;
 background: var(--white);
@@ -426,60 +434,46 @@ flex-wrap: wrap;
 gap: 16px;
 }
 
-.portfolio-track-wrapper {
-overflow: hidden;
-width: 100%;
-}
-
-.portfolio-track {
-display: flex;
+.featured-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
 gap: 20px;
-animation: portfolioScroll 30s linear infinite;
-width: max-content;
-}
-.portfolio-track:hover { animation-play-state: paused; }
-
-@keyframes portfolioScroll {
-0% { transform: translateX(0); }
-100% { transform: translateX(-50%); }
 }
 
-.portfolio-card {
-width: 340px;
-height: 240px;
+.featured-card {
+display: block;
+text-decoration: none;
+color: var(--white);
+background: var(--dark3);
 border-radius: 4px;
 overflow: hidden;
-flex-shrink: 0;
-position: relative;
-cursor: pointer;
 }
-.portfolio-card:hover .portfolio-overlay { opacity: 1; }
-
-.portfolio-img {
-width: 100%; height: 100%;
+.featured-card img {
+display: block;
+width: 100%;
+height: auto;
+aspect-ratio: 4 / 3;
+object-fit: cover;
+transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.portfolio-img.g1 { background-image: url('https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfa45000761357bc26584.png'); background-size: cover; background-position: center; }
-.portfolio-img.g2 { background-image: url('https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfb14008498b32283b469.png'); background-size: cover; background-position: center; }
-.portfolio-img.g3 { background-image: url('https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfb1495bc4a356efdca4e.png'); background-size: cover; background-position: center; }
-.portfolio-img.g4 { background-image: url('https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfb14c08665fb6ee5d778.png'); background-size: cover; background-position: center; }
-.portfolio-img.g5 { background-image: url('https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfb14a44964887c933d2d.png'); background-size: cover; background-position: center; }
-.portfolio-img.g6 { background-image: url('https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfb14a449640802933d2c.png'); background-size: cover; background-position: center; }
+.featured-card:hover img { transform: scale(1.03); }
+.featured-card:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
 
-.portfolio-overlay {
-position: absolute;
-inset: 0;
-background: rgba(13,13,13,0.7);
+.featured-meta {
+padding: 18px 20px 20px;
 display: flex;
-align-items: center;
-justify-content: center;
-opacity: 0;
-transition: opacity 0.3s;
+flex-direction: column;
+gap: 4px;
 }
-.portfolio-overlay span {
+.featured-type {
 font-family: var(--font-heading);
-font-size: 1.2rem;
-letter-spacing: 3px;
-color: var(--white);
+font-size: 1.5rem;
+letter-spacing: 1.5px;
+line-height: 1.1;
+}
+.featured-city {
+font-size: 0.85rem;
+color: rgba(255,255,255,0.7);
 }
 
 .portfolio-cta { margin-top: 40px; text-align: center; }
@@ -901,6 +895,98 @@ cursor: pointer;
 }
 
 .form-submit { margin-top: 4px; }
+.form-note {
+font-size: 0.8rem;
+color: rgba(255,255,255,0.6);
+line-height: 1.6;
+margin-top: 12px;
+}
+
+.contact-method {
+border: 0;
+display: flex;
+flex-direction: column;
+gap: 6px;
+}
+.contact-method legend {
+font-size: 0.75rem;
+font-weight: 600;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: rgba(255,255,255,0.6);
+margin-bottom: 6px;
+}
+.method-options {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 8px;
+}
+.method-options label {
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 48px;
+border: 1px solid rgba(255,255,255,0.12);
+background: rgba(255,255,255,0.06);
+border-radius: 2px;
+font-size: 0.88rem;
+font-weight: 600;
+color: rgba(255,255,255,0.75);
+cursor: pointer;
+transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.method-options input {
+position: absolute;
+opacity: 0;
+width: 1px;
+height: 1px;
+}
+.method-options label:has(input:checked) {
+border-color: var(--white);
+background: var(--white);
+color: var(--dark);
+}
+.method-options label:has(input:focus-visible) {
+outline: 2px solid var(--white);
+outline-offset: 2px;
+}
+
+.form-status {
+border-radius: 2px;
+padding: 16px 18px;
+font-size: 0.9rem;
+line-height: 1.6;
+}
+.form-status a { color: inherit; text-decoration: underline; }
+.form-status.is-error {
+border: 1px solid rgba(255,107,107,0.5);
+background: rgba(255,107,107,0.08);
+color: #ffb3b3;
+}
+.form-success {
+border: 1px solid rgba(255,255,255,0.2);
+background: rgba(255,255,255,0.04);
+border-radius: 2px;
+padding: 32px 28px;
+color: var(--white);
+}
+.form-success h3 {
+font-family: var(--font-heading);
+font-size: 2rem;
+letter-spacing: 1.5px;
+margin-bottom: 12px;
+}
+.form-success p {
+font-size: 0.95rem;
+line-height: 1.7;
+color: rgba(255,255,255,0.72);
+}
+.form-success a { color: var(--white); white-space: nowrap; }
+.form-status a { white-space: nowrap; }
+
+/* ─── MOBILE STICKY CONTACT BAR ─── */
+.sticky-cta { display: none; }
 
 /* ─── FAQ ─── */
 #faq { background: var(--off-white); }
@@ -1097,7 +1183,8 @@ color: rgba(255,255,255,0.55);
 /* ─── REDUCED MOTION ─── */
 @media (prefers-reduced-motion: reduce) {
 .fade-in { transition: none; }
-.portfolio-track, .testimonials-track { animation-play-state: paused; }
+.testimonials-track { animation-play-state: paused; }
+.featured-card img, .sticky-cta { transition: none; }
 @keyframes scrollLine { 0%, 100% { transform: none; opacity: 1; } }
 .scroll-line { animation: none; }
 }
@@ -1142,11 +1229,56 @@ margin-bottom: 48px;
 .footer-bottom { flex-direction: column; text-align: center; }
 
 .about-badge { bottom: 10px; right: 10px; }
+
+.featured-grid { grid-template-columns: 1fr; gap: 16px; }
+.featured-card { display: grid; grid-template-columns: 42% 1fr; align-items: center; }
+.featured-card img { height: 100%; aspect-ratio: auto; min-height: 120px; }
+.featured-meta { padding: 16px; }
+.featured-type { font-size: 1.25rem; }
+
+.sticky-cta {
+display: grid;
+grid-template-columns: 1fr 1.6fr;
+position: fixed;
+left: 0; right: 0; bottom: 0;
+z-index: 990;
+background: var(--dark);
+border-top: 1px solid rgba(255,255,255,0.14);
+padding-bottom: env(safe-area-inset-bottom);
+transform: translateY(100%);
+visibility: hidden;
+transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.sticky-cta.is-visible {
+transform: translateY(0);
+visibility: visible;
+transition: transform 0.25s ease, visibility 0s;
+}
+.sticky-cta a {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+min-height: 56px;
+font-family: var(--font-body);
+font-size: 0.8rem;
+font-weight: 700;
+letter-spacing: 2px;
+text-transform: uppercase;
+text-decoration: none;
+}
+.sticky-cta-call { color: var(--white); border-right: 1px solid rgba(255,255,255,0.14); }
+.sticky-cta-call svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.sticky-cta-estimate { background: var(--white); color: var(--dark); }
+/* Reserve space so the bar never covers the footer or the last lines of content */
+body { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
 }
 
 @media (max-width: 480px) {
 .hero-content h1 { font-size: 2.4rem; }
-.portfolio-card { width: 280px; height: 200px; }
+.hero-actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 340px; margin: 0 auto; }
+.hero-actions .btn-gold, .hero-actions .btn-outline-gold { padding: 16px 20px; letter-spacing: 2px; text-align: center; }
+.method-options label { font-size: 0.82rem; }
 .testimonial-card { width: 300px; }
 }
 </style>
@@ -1200,11 +1332,58 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="hero-content fade-in">
 <span class="hero-eyebrow">Kitchen · Bathroom · Additions · Painting · Flooring</span>
 <h1>DFW'S TRUSTED<br><em>HOME REMODELING</em><br>EXPERTS</h1>
-<a href="#contact" class="btn-gold">Book Now</a>
+<div class="hero-actions">
+<a href="#contact" class="btn-gold">Request a Remodeling Estimate</a>
+<a href="#portfolio" class="btn-outline-gold">View Our Projects</a>
+</div>
 </div>
 <div class="hero-scroll">
 <span>Scroll</span>
 <div class="scroll-line"></div>
+</div>
+</section>
+
+<!-- ─── FEATURED PROJECTS ─── -->
+<!--
+  Each card shows project type + city. Types describe what the photo shows;
+  the cities are placeholders ("DFW area") until confirmed. Replace the text
+  in .featured-type / .featured-city with the verified details,
+  e.g. "Bathroom Remodel" / "Fort Worth, TX".
+-->
+<section id="portfolio">
+<div class="section-inner">
+<div class="fade-in">
+<h2 class="section-title" style="color:var(--white);">RECENT PROJECTS</h2>
+<div class="gold-line"></div>
+</div>
+
+<div class="featured-grid">
+<a class="featured-card fade-in" href="portfolio.html">
+<img src="https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfa45000761357bc26584.png" alt="Kitchen with a stained wood island, white shaker cabinets, and pendant lights" width="800" height="600" loading="lazy" decoding="async" />
+<div class="featured-meta">
+<span class="featured-type">Kitchen Remodel</span>
+<span class="featured-city">DFW area</span>
+</div>
+</a>
+<a class="featured-card fade-in fade-in-delay-1" href="portfolio.html">
+<img src="https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfb14a44964887c933d2d.png" alt="Primary bathroom with a freestanding tub, stone accent wall, and double vanities" width="800" height="600" loading="lazy" decoding="async" />
+<div class="featured-meta">
+<span class="featured-type">Primary Bathroom</span>
+<span class="featured-city">DFW area</span>
+</div>
+</a>
+<a class="featured-card fade-in fade-in-delay-2" href="portfolio.html">
+<img src="https://storage.googleapis.com/msgsndr/02Yf7hzCEatJpu2idvv1/media/698dfb14a449640802933d2c.png" alt="Floor-to-ceiling stone fireplace wall with a wood mantel" width="800" height="600" loading="lazy" decoding="async" />
+<div class="featured-meta">
+<span class="featured-type">Stone Fireplace Wall</span>
+<span class="featured-city">DFW area</span>
+</div>
+</a>
+</div>
+
+<div class="portfolio-cta fade-in">
+<a href="portfolio.html" class="btn-outline-gold">View Full Portfolio</a>
+</div>
 </div>
 </section>
 
@@ -1290,38 +1469,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <p>DFW commercial remodeling delivering professional build-outs tailored to business functionality and growth.</p>
 </a>
 
-</div>
-</div>
-</section>
-
-<!-- ─── PORTFOLIO ─── -->
-<section id="portfolio">
-<div class="section-inner">
-<div class="portfolio-header fade-in">
-<div>
-<h2 class="section-title" style="color:var(--white);">OUR PORTFOLIO</h2>
-<div class="gold-line"></div>
-</div>
-<a href="portfolio.html" class="btn-outline-gold">View Full Portfolio</a>
-</div>
-</div>
-
-<div class="portfolio-track-wrapper fade-in">
-<div class="portfolio-track" id="portfolioTrack">
-<!-- First set -->
-<div class="portfolio-card"><div class="portfolio-img g1"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g2"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g3"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g4"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g5"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g6"></div></div>
-<!-- Duplicate for seamless loop -->
-<div class="portfolio-card"><div class="portfolio-img g1"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g2"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g3"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g4"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g5"></div></div>
-<div class="portfolio-card"><div class="portfolio-img g6"></div></div>
 </div>
 </div>
 </section>
@@ -1563,31 +1710,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <div class="fade-in fade-in-delay-2">
-<form class="contact-form" id="contactForm">
-<div class="form-row">
+<form class="contact-form" id="contactForm" data-track-form="homepage_estimate">
 <div class="form-group">
-<label for="fullName">Full Name</label>
+<label for="fullName">Name</label>
 <input type="text" id="fullName" name="fullName" placeholder="John Smith" autocomplete="name" required />
 </div>
-<div class="form-group">
+
+<fieldset class="contact-method">
+<legend>Best way to reach you</legend>
+<div class="method-options">
+<label><input type="radio" name="contactMethod" value="call" checked /> Call</label>
+<label><input type="radio" name="contactMethod" value="text" /> Text</label>
+<label><input type="radio" name="contactMethod" value="email" /> Email</label>
+</div>
+</fieldset>
+
+<div class="form-group" id="phoneGroup">
 <label for="phone">Phone</label>
-<input type="tel" id="phone" name="phone" placeholder="(817) 555-0100" autocomplete="tel" required />
+<input type="tel" id="phone" name="phone" placeholder="(817) 555-0100" autocomplete="tel" inputmode="tel" required />
 </div>
+<div class="form-group" id="emailGroup" hidden>
+<label for="email">Email</label>
+<input type="email" id="email" name="email" placeholder="john@email.com" autocomplete="email" disabled />
 </div>
+
 <div class="form-row">
 <div class="form-group">
-<label for="email">Email</label>
-<input type="email" id="email" name="email" placeholder="john@email.com" autocomplete="email" required />
-</div>
-<div class="form-group">
-<label for="address">Address</label>
-<input type="text" id="address" name="address" placeholder="123 Main St, Fort Worth, TX" autocomplete="street-address" />
-</div>
-</div>
-<div class="form-group">
-<label for="service">Service Needed</label>
+<label for="service">Project Type</label>
 <select id="service" name="service" required>
-<option value="" disabled selected>Select a service...</option>
+<option value="" disabled selected>Select a project...</option>
 <option value="Kitchen Remodel">Kitchen Remodel</option>
 <option value="Bathroom Remodel">Bathroom Remodel</option>
 <option value="Home Remodel">Home Remodel</option>
@@ -1601,20 +1752,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </select>
 </div>
 <div class="form-group">
-<label for="message">Message <span style="font-size:0.75rem;color:rgba(255,255,255,0.35);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
-<textarea id="message" name="message" placeholder="Tell us about your project..."></textarea>
+<label for="cityZip">City or ZIP</label>
+<input type="text" id="cityZip" name="cityZip" placeholder="Fort Worth or 76107" autocomplete="postal-code" required />
 </div>
-<div class="consent-check">
-<input type="checkbox" id="smsConsent" name="smsConsent" required />
+</div>
+
+<div class="consent-check" id="smsConsentGroup">
+<input type="checkbox" id="smsConsent" name="smsConsent" />
 <label for="smsConsent">By checking this box, I agree to receive text messages from Alonso Innovation about my project inquiry. Message and data rates may apply. Message frequency may vary. Reply STOP to unsubscribe or HELP for help. Consent is not a condition of purchase.</label>
 </div>
-<p class="form-error" id="formError" style="display:none;color:#ff6b6b;font-size:0.82rem;line-height:1.5;margin-top:4px;">
-Please call or text us directly at <a href="tel:9723913359" style="color:#ff9999;text-decoration:underline">(972) 391-3359</a>.
-</p>
+
+<div class="form-status" id="formStatus" role="alert" hidden></div>
+
 <div class="form-submit">
-<button type="submit" class="btn-gold">Request a Quote</button>
+<button type="submit" class="btn-gold">Request My Estimate</button>
+<p class="form-note">No address needed yet. We'll ask for it when we schedule your visit.</p>
 </div>
 </form>
+<div class="form-success" id="formSuccess" tabindex="-1" hidden>
+<h3>REQUEST RECEIVED</h3>
+<p id="formSuccessText">Thanks. We'll be in touch during business hours (Mon–Sat, 8am–6pm).</p>
+<p style="margin-top:12px">Need us sooner? Call or text <a href="tel:9723913359">(972) 391-3359</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1744,6 +1903,15 @@ Proudly serving Fort Worth, Dallas, Arlington, Grapevine, Southlake, Keller, Man
 </div>
 </footer>
 
+<!-- ─── MOBILE STICKY CONTACT BAR ─── -->
+<div class="sticky-cta" id="stickyCta" data-track-location="sticky_bar">
+<a href="tel:9723913359" class="sticky-cta-call" aria-label="Call (972) 391-3359">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.7a2 2 0 01-.5 2.1L8 9.8a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.7.7a2 2 0 011.7 2z"/></svg>
+Call
+</a>
+<a href="#contact" class="sticky-cta-estimate">Request Estimate</a>
+</div>
+
 <!-- ─── JAVASCRIPT ─── -->
 <script>
 // ── Hamburger menu ──
@@ -1823,13 +1991,125 @@ if (!isOpen) item.classList.add('open');
 });
 });
 
-// ── Contact form (disconnected) ──
-document.getElementById('contactForm').addEventListener('submit', (e) => {
-e.preventDefault();
-const errMsg = document.getElementById('formError');
-errMsg.style.display = 'block';
-errMsg.scrollIntoView({ block: 'center', behavior: 'smooth' });
+// ── Contact form ──
+// Set LEAD_ENDPOINT to the URL that should receive leads (a JSON POST).
+// While it is empty, submissions show the call/text fallback and are
+// counted as `form_submit_failed` (reason: not_configured) so lost leads
+// are visible in analytics.
+const LEAD_ENDPOINT = '';
+
+(function () {
+const form = document.getElementById('contactForm');
+const status = document.getElementById('formStatus');
+const success = document.getElementById('formSuccess');
+const btn = form.querySelector('button[type="submit"]');
+const phoneGroup = document.getElementById('phoneGroup');
+const emailGroup = document.getElementById('emailGroup');
+const phone = document.getElementById('phone');
+const email = document.getElementById('email');
+const consent = document.getElementById('smsConsent');
+const consentGroup = document.getElementById('smsConsentGroup');
+const track = (name, data) => (window.aiTrack || function () {})(name, data);
+const PHONE_HTML = '<a href="tel:9723913359">(972) 391-3359</a>';
+
+function method() {
+  return form.querySelector('input[name="contactMethod"]:checked').value;
+}
+
+function syncMethod() {
+  const m = method();
+  const usePhone = m !== 'email';
+  phoneGroup.hidden = !usePhone;
+  phone.disabled = !usePhone;
+  phone.required = usePhone;
+  emailGroup.hidden = usePhone;
+  email.disabled = usePhone;
+  email.required = !usePhone;
+  // SMS consent only applies when we'd have a phone number; required for "Text".
+  consentGroup.hidden = !usePhone;
+  consent.disabled = !usePhone;
+  consent.required = m === 'text';
+}
+form.querySelectorAll('input[name="contactMethod"]').forEach(r => r.addEventListener('change', syncMethod));
+syncMethod();
+
+function showError(html) {
+  status.innerHTML = html;
+  status.className = 'form-status is-error';
+  status.hidden = false;
+  status.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const m = method();
+  const payload = {
+    fullName: form.fullName.value.trim(),
+    contactMethod: m,
+    phone: m === 'email' ? '' : phone.value.trim(),
+    email: m === 'email' ? email.value.trim() : '',
+    service: form.service.value,
+    cityZip: form.cityZip.value.trim(),
+    smsConsent: !consent.disabled && consent.checked,
+    source: window.location.href,
+    timestamp: new Date().toISOString()
+  };
+
+  status.hidden = true;
+
+  if (!LEAD_ENDPOINT) {
+    track('form_submit_failed', { form: 'homepage_estimate', reason: 'not_configured' });
+    showError('Online requests aren’t available right now. Please call or text us at ' + PHONE_HTML + ' and we’ll get your estimate started.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10000);
+  try {
+    const res = await fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    if (!res.ok) throw new Error('http_' + res.status);
+
+    track('form_submission', { form: 'homepage_estimate', service: payload.service, contact_method: m });
+    const first = payload.fullName.split(/\s+/)[0];
+    const how = m === 'email' ? 'by email' : m === 'text' ? 'by text' : 'by phone';
+    document.getElementById('formSuccessText').textContent =
+      'Thanks' + (first ? ', ' + first : '') + '. We’ll reach out ' + how + ' during business hours (Mon–Sat, 8am–6pm).';
+    form.hidden = true;
+    success.hidden = false;
+    success.focus();
+  } catch (err) {
+    const reason = err.name === 'AbortError' ? 'timeout' : (err.message || 'network');
+    track('form_submit_failed', { form: 'homepage_estimate', reason: reason });
+    showError('We couldn’t send your request. Your details are still filled in, so please try again, or call or text us at ' + PHONE_HTML + '.');
+  } finally {
+    clearTimeout(timer);
+    btn.disabled = false;
+    btn.textContent = 'Request My Estimate';
+  }
 });
+})();
+
+// ── Mobile sticky contact bar ──
+// Hidden while the hero (which has its own buttons) or the contact section
+// is on screen, so it never sits on top of the form or its keyboard.
+(function () {
+const bar = document.getElementById('stickyCta');
+const hero = document.getElementById('hero');
+const contact = document.getElementById('contact');
+if (!bar || !hero || !contact || !('IntersectionObserver' in window)) return;
+const inView = { hero: true, contact: false };
+const update = () => bar.classList.toggle('is-visible', !inView.hero && !inView.contact);
+new IntersectionObserver(([e]) => { inView.hero = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(hero);
+new IntersectionObserver(([e]) => { inView.contact = e.isIntersecting; update(); }, { threshold: 0 }).observe(contact);
+})();
 
 // hero-video loop is handled by the native `loop` attribute
 
