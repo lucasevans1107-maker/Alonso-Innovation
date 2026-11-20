@@ -1192,6 +1192,10 @@ section { position: relative; }
   .hero-form-card { padding: 28px 20px; }
 }
 </style>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1818,10 +1822,55 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── Form submission (disconnected) ──
+// ── Form submission ──
+const WEBHOOK = 'https://era-n8n-vps-n8n.xxj3ex.easypanel.host/webhook/alonoso_web_form';
+
 async function submitForm(form, btnEl, errEl) {
-  errEl.style.display = 'block';
-  errEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  const payload = {
+    fullName: form.fullName.value,
+    phone: form.phone.value,
+    email: form.email ? form.email.value : '',
+    address: form.address ? form.address.value : '',
+    service: form.service ? form.service.value : 'Exterior Painting',
+    message: form.message.value,
+    smsConsent: form.smsConsent.checked,
+    source: window.location.href,
+    timestamp: new Date().toISOString()
+  };
+  btnEl.disabled = true;
+  btnEl.textContent = 'Sending…';
+  errEl.style.display = 'none';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const res = await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error('server error');
+    window.dataLayer = window.dataLayer || [];
+    (window.aiTrack || function (n, d) { window.dataLayer.push(Object.assign({ event: n }, d)); })('form_submission', { service: payload.service, page: window.location.pathname });
+    btnEl.textContent = 'Request Sent!';
+    btnEl.style.background = '#2a7a2a';
+    btnEl.style.borderColor = '#2a7a2a';
+    btnEl.style.color = '#fff';
+    form.reset();
+    setTimeout(() => {
+      btnEl.textContent = 'Request a Free Estimate';
+      btnEl.style.background = '';
+      btnEl.style.borderColor = '';
+      btnEl.style.color = '';
+      btnEl.disabled = false;
+    }, 4000);
+  } catch (err) {
+    clearTimeout(timeout); if (window.aiTrack) window.aiTrack('form_submit_failed', { form: form.id, reason: err.name === 'AbortError' ? 'timeout' : (err.message || 'network') });
+    errEl.style.display = 'block';
+    btnEl.textContent = 'Request a Free Estimate';
+    btnEl.disabled = false;
+  }
 }
 
 document.getElementById('exteriorPaintingHeroForm').addEventListener('submit', async (e) => {
