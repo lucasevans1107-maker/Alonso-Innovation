@@ -1992,11 +1992,11 @@ if (!isOpen) item.classList.add('open');
 });
 
 // ── Contact form ──
-// Set LEAD_ENDPOINT to the URL that should receive leads (a JSON POST).
-// While it is empty, submissions show the call/text fallback and are
-// counted as `form_submit_failed` (reason: not_configured) so lost leads
-// are visible in analytics.
-const LEAD_ENDPOINT = '';
+// Leads are POSTed as JSON to the n8n "Website Form" workflow, which emails Alonso.
+// Use the production /webhook/ URL here, never /webhook-test/ (that one only
+// answers while the n8n editor is listening). If this is ever emptied, the form
+// falls back to the call/text message and logs form_submit_failed (not_configured).
+const LEAD_ENDPOINT = 'https://era-n8n-vps-n8n.xxj3ex.easypanel.host/webhook/alonoso_web_form';
 
 (function () {
 const form = document.getElementById('contactForm');

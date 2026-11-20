@@ -607,10 +607,19 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) { fadeEls.fo
 const fadeObs = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = ''; entry.target.style.transform = ''; fadeObs.unobserve(entry.target); } }); }, { threshold: 0.12 });
 fadeEls.forEach(el => fadeObs.observe(el));
 document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', e => { const target = document.querySelector(a.getAttribute('href')); if (target) { e.preventDefault(); window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 72, behavior: 'smooth' }); } }); });
-// ── Form submission (disconnected) ──
+// ── Form submission ──
+const WEBHOOK = 'https://era-n8n-vps-n8n.xxj3ex.easypanel.host/webhook/alonoso_web_form';
 async function submitForm(form, btnEl, errEl) {
-  errEl.style.display = 'block';
-  errEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  const payload = { fullName: form.fullName.value, phone: form.phone.value, email: form.email ? form.email.value : '', address: form.address ? form.address.value : '', service: form.service ? form.service.value : 'Additions', message: form.message.value, smsConsent: form.smsConsent.checked, source: window.location.href, timestamp: new Date().toISOString() };
+  btnEl.disabled = true; btnEl.textContent = 'Sending…'; errEl.style.display = 'none';
+  const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const res = await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
+    clearTimeout(timeout); if (!res.ok) throw new Error('server error');
+    window.dataLayer = window.dataLayer || []; (window.aiTrack || function (n, d) { window.dataLayer.push(Object.assign({ event: n }, d)); })('form_submission', { service: payload.service, page: window.location.pathname });
+    btnEl.textContent = 'Request Sent!'; btnEl.style.background = '#2a7a2a'; btnEl.style.borderColor = '#2a7a2a'; btnEl.style.color = '#fff'; form.reset();
+    setTimeout(() => { btnEl.textContent = 'Request a Free Estimate'; btnEl.style.background = ''; btnEl.style.borderColor = ''; btnEl.style.color = ''; btnEl.disabled = false; }, 4000);
+  } catch (err) { clearTimeout(timeout); if (window.aiTrack) window.aiTrack('form_submit_failed', { form: form.id, reason: err.name === 'AbortError' ? 'timeout' : (err.message || 'network') }); errEl.style.display = 'block'; btnEl.textContent = 'Request a Free Estimate'; btnEl.disabled = false; }
 }
 document.getElementById('additionsHeroForm').addEventListener('submit', async (e) => { e.preventDefault(); const btn = e.target.querySelector('button[type="submit"]'); await submitForm(e.target, btn, document.getElementById('additionsHeroFormError')); });
 document.getElementById('additionsBottomForm').addEventListener('submit', async (e) => { e.preventDefault(); const btn = e.target.querySelector('button[type="submit"]'); await submitForm(e.target, btn, document.getElementById('additionsBottomFormError')); });
